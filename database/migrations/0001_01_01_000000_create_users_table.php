@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('level')->default(1);
             $table->string('role')->default('user');
             $table->rememberToken();
+            $table->boolean('onboarded')->default(false);
             $table->timestamps();
         });
 

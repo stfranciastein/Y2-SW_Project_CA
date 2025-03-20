@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             'level' => 1,
             'role' => 'admin',
             'remember_token' => Str::random(10),
+            'onboarded' => true
         ]);
 
         // Uncomment if you want 10 random users
