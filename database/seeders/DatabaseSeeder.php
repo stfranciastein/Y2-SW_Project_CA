@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create Admin User
+        User::create([
+            'name' => 'Gale Dekarios',
+            'email' => 'wizardofwaterdeep@gmail.com',
+            'password' => Hash::make('123456789'),
+            'country' => 'USA',
+            'biography' => 'A process known as ceremorphosis?! It is to be avoided.',
+            'image_url' => null,
+            'level' => 1,
+            'role' => 'admin',
+            'remember_token' => Str::random(10),
         ]);
+
+        // Uncomment if you want 10 random users
+        // User::factory(10)->create();
     }
 }
