@@ -59,17 +59,25 @@
 
             <!-- Country Field -->
             <div class="row mb-3">
-                <label for="country" class="col-md-4 col-form-label text-md-end">
-                    {{ __('Country') }}
-                </label>
+                <label for="country" class="col-md-4 col-form-label text-md-end">Country</label>
+
                 <div class="col-md-6">
-                    <input id="country" type="text" class="form-control @error('country') is-invalid @enderror"
-                        name="country" value="{{ old('country', $user->country) }}" required>
+                    <select id="country" name="country" class="form-control select2">
+                        @foreach(config('countries.list') as $country)
+                            <option value="{{ $country }}" {{ old('country', $user->country) == $country ? 'selected' : '' }}>
+                                {{ $country }}
+                            </option>
+                        @endforeach
+                    </select>
+
                     @error('country')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </div>
+
 
             <!-- Biography Field -->
             <div class="row mb-3">
@@ -99,3 +107,11 @@
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#country').select2({
+            placeholder: "Select your country",
+            allowClear: true
+        });
+    });
+</script>
