@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
 
         // Uncomment if you want 10 random users
         // User::factory(10)->create();
+        $this->call(ActivitySeeder::class);
     }
 }

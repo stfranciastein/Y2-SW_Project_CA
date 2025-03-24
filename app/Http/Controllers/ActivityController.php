@@ -12,7 +12,8 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        $activities = Activity::all();
+        return view('activities.index', compact('activities'));
     }
 
     /**
@@ -36,8 +37,9 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return view('activities.show', compact('activity'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
