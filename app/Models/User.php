@@ -51,4 +51,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //Defines One-To-Many relationship with UserEmission class.
+    public function userEmissions()
+    {
+    return $this->hasMany(\App\Models\UserEmission::class);
+    }
+
 }

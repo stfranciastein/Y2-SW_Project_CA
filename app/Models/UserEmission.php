@@ -18,4 +18,11 @@ class UserEmission extends Model
         'baseline_air',
         'baseline_sea',
     ];
+
+    //For testing purposes only.
+    //This can let you do emission->user->name but this is impractical for anything other than testing purposes.
+    public function user()
+    {
+    return $this->belongsTo(\App\Models\User::class);
+    }
 }
