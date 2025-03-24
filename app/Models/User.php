@@ -52,10 +52,17 @@ class User extends Authenticatable
         ];
     }
 
-    //Defines One-To-Many relationship with UserEmission class.
+///////////////////////////////////////////////////////////////////////////////////////////////
+    //Defines One-To-Many relationship with UserEmission model.
     public function userEmissions()
     {
     return $this->hasMany(\App\Models\UserEmission::class);
+    }
+
+    //Defines Belongs-To-Many relationship with FavouritedActivities model.
+    public function favouritedActivities()
+    {
+    return $this->belongsToMany(Activity::class, 'favourited_activities')->withTimestamps();
     }
 
 }

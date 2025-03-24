@@ -16,6 +16,17 @@
                     <canvas id="emissionsChart" width="400" height="400"></canvas>
                 </div>
 
+                <div class="container">
+                <h2>Your Favourited Activities</h2>
+                    <div class="row">
+                        @foreach($favouritedActivities as $activity)
+                            <x-activity-card :activity="$activity" />
+                        @endforeach
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+        <a href="{{ route('favouritedactivities.index') }}" class="btn btn-primary">See All Favourited Activities</a>
+    </div>
             </div>
         </div>
     </div>

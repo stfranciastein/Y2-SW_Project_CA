@@ -2,64 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FavouritedActivity;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class FavouritedActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $favouritedActivities = auth()->user()->favouritedActivities;
+        return view('favouritedactivities.index', compact('favouritedActivities'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Activity $activity)
     {
-        //
+        auth()->user()->favouritedActivities()->attach($activity->id);
+        return back()->with('success', 'Activity favourited.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroy(Activity $activity)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(FavouritedActivity $favouritedActivity)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FavouritedActivity $favouritedActivity)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, FavouritedActivity $favouritedActivity)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(FavouritedActivity $favouritedActivity)
-    {
-        //
+        auth()->user()->favouritedActivities()->detach($activity->id);
+        return back()->with('success', 'Activity unfavourited.');
     }
 }
