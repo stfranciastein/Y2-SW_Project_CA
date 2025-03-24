@@ -28,6 +28,16 @@ class DatabaseSeeder extends Seeder
             'onboarded' => true
         ]);
 
+        UserEmission::create([
+            'user_id' => $gale->id,
+            'baseline_food' => 75,
+            'baseline_waste' => 50,
+            'baseline_energy' => 60,
+            'baseline_land' => 40,
+            'baseline_air' => 80,
+            'baseline_sea' => 20,
+        ]);
+
         // Uncomment if you want 10 random users
         // User::factory(10)->create();
         $this->call(ActivitySeeder::class);
