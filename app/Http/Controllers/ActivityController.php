@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\FavouritedActivity;
+use Appp\Models\CompletedActivity;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -10,10 +12,19 @@ class ActivityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $activities = Activity::all();
-        return view('activities.index', compact('activities'));
+
+        $favouritedActivities = auth()->user()->favouritedActivities;
+
+        //Remember the completed activities need to subract from the user's baseline emissions with the corresponding reduction emission from activity.
+        $completedActivities = auth()->user()->completedActivities;
+
+        $activeTab = $request->query('tab', 'general');
+
+        return view('activities.index', compact('activities', 'favouritedActivities', 'completedActivities', 'activeTab'));
+
     }
 
     /**

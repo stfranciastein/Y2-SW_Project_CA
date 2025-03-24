@@ -26,16 +26,28 @@ Route::middleware('auth')->group(function () {
 });
 
 // Activity Routes
-Route::get('/activities', [ActivityController::class, 'index'])->middleware(['auth'])->name('activities.index');
+Route::middleware('auth')->group(function () {
+    // Single route for the activities index page with 3 tabs
+    Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+});
 Route::get('/activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
 
 // Favourited Activity Routes
 Route::middleware('auth')->group(function () {
-    // I had to change this route to be saprate from the group because the other routes need activity as a prefix.
+    // I had to change this route to be seperate from the group because the other routes need activity as a prefix.
     Route::get('/favourited', [FavouritedActivityController::class, 'index'])->name('favouritedactivities.index');    
     Route::controller(FavouritedActivityController::class)->group(function () {
         Route::post('{activity}/favourite', 'store')->name('activities.favourite');
         Route::delete('{activity}/favourite', 'destroy')->name('activities.unfavourite');
+    });
+});
+
+// Completed Activity Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/completed', [CompletedActivityController::class, 'index'])->name('completeddactivities.index');    
+    Route::controller(CompletedActivityController::class)->group(function () {
+        Route::post('{activity}/completed', 'store')->name('activities.completed');
+        Route::delete('{activity}/completed', 'destroy')->name('activities.uncompleted');
     });
 });
 

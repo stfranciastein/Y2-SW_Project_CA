@@ -26,8 +26,9 @@
                         @endforeach
                     </div>
                     <div class="text-center mt-4">
-                        <a href="{{ route('favouritedactivities.index') }}" class="btn btn-primary">See All Favourited Activities</a>
+                        <a href="{{ route('activities.index', ['tab' => 'favourited']) }}" class="btn btn-primary">See All Favourited Activities</a>
                     </div>
+
                 @endif
 
             </div>

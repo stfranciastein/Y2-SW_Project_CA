@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class FavouritedActivityController extends Controller
 {
-    public function index()
-    {
-        $favouritedActivities = auth()->user()->favouritedActivities;
-        return view('favouritedactivities.index', compact('favouritedActivities'));
-    }
-
     public function store(Activity $activity)
     {
         auth()->user()->favouritedActivities()->attach($activity->id);

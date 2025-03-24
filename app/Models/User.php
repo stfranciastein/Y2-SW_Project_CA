@@ -65,4 +65,11 @@ class User extends Authenticatable
     return $this->belongsToMany(Activity::class, 'favourited_activities')->withTimestamps();
     }
 
+    //Defines Belongs-To-Many relationship with CompletedActivities model.
+    public function completedActivities()
+    {
+    return $this->belongsToMany(Activity::class, 'completed_activities')->withTimestamps();
+    }
+
+
 }

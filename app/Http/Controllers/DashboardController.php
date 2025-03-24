@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $user = auth()->user();
         
         // Get the latest 2 favourited activities
-        $favouritedActivities = $user->favouritedActivities()->latest()->take(2)->get();
+        $favouritedActivities = $user->favouritedActivities()->latest($column = 'id')->take(2)->get();
         
         // Get the user's emissions data
         $emissions = $user->userEmissions()->latest()->first();

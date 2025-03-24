@@ -2,64 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CompletedActivity;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class CompletedActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(Activity $activity)
     {
-        //
+        auth()->user()->completedActivities()->attach($activity->id);
+        return back()->with('success', 'Activity completed.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function destroy(Activity $activity)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(CompletedActivity $completedActivity)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CompletedActivity $completedActivity)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, CompletedActivity $completedActivity)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CompletedActivity $completedActivity)
-    {
-        //
+        auth()->user()->completedActivities()->detach($activity->id);
+        return back()->with('success', 'Activity uncompleted.');
     }
 }
