@@ -16,17 +16,20 @@
                     <canvas id="emissionsChart" width="400" height="400"></canvas>
                 </div>
 
-                <div class="container">
-                <h2>Your Favourited Activities</h2>
+                @if($favouritedActivities->count() > 0)
+                    <h2>Your Favourited Activities</h2>
                     <div class="row">
                         @foreach($favouritedActivities as $activity)
-                            <x-activity-card :activity="$activity" />
+                            <div class="col-md-6 mb-4">
+                                <x-activity-card :activity="$activity" />
+                            </div>
                         @endforeach
                     </div>
-                </div>
-                <div class="text-center mt-4">
-        <a href="{{ route('favouritedactivities.index') }}" class="btn btn-primary">See All Favourited Activities</a>
-    </div>
+                    <div class="text-center mt-4">
+                        <a href="{{ route('favouritedactivities.index') }}" class="btn btn-primary">See All Favourited Activities</a>
+                    </div>
+                @endif
+
             </div>
         </div>
     </div>
@@ -118,7 +121,6 @@
                 y: {
                     beginAtZero: true,
                     stacked: true, // Enable stacking on the y-axis
-                    max: 600, // YOU NEED TO CHANGE THIS LATER.
                     ticks: {
                         display: false,
                     },
@@ -134,7 +136,7 @@
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem) {
-                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + 'kg CO2/year';
                         }
                     }
                 }

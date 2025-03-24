@@ -12,22 +12,22 @@
             <p><strong>Impact Points:</strong> {{ $activity->impact_points }}</p>
             <p><strong>Difficulty:</strong> {{ $activity->difficulty }}</p>
 
-            <!-- Add more data as needed -->
+            @auth
+                <form method="POST" action="{{ auth()->user()->favouritedActivities->contains($activity->id)
+                    ? route('activities.unfavourite', $activity->id)
+                    : route('activities.favourite', $activity->id) }}">
+                    @csrf
+                    @if (auth()->user()->favouritedActivities->contains($activity->id))
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">Unfavourite</button>
+                    @else
+                        <button type="submit" class="btn btn-dark">Favourite</button>
+                    @endif
+                </form>
+            @endauth
         </div>
     </div>
 </div>
-@auth
-    <form method="POST" action="{{ auth()->user()->favouritedActivities->contains($activity->id)
-        ? route('activities.unfavourite', $activity->id)
-        : route('activities.favourite', $activity->id) }}">
-        @csrf
-        @if (auth()->user()->favouritedActivities->contains($activity->id))
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-danger">Unfavourite</button>
-        @else
-            <button type="submit" class="btn btn-dark">Favourite</button>
-        @endif
-    </form>
-@endauth
+
 
 @endsection

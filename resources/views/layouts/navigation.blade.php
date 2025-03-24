@@ -1,5 +1,5 @@
 <!-- Regular Top Navbar (for larger screens) -->
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-none d-md-block fixed-top">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-none d-md-block sticky-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
             {{ __('PLANIT') }}
