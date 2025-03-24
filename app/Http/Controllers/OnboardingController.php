@@ -10,7 +10,9 @@ class OnboardingController extends Controller
 {
     public function show()
     {
-        return view('onboarding');
+        $emissions = auth()->user()->userEmission;
+
+        return view('onboarding', compact('emissions'));
     }
 
     public function store(Request $request)
