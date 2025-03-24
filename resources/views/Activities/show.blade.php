@@ -25,6 +25,20 @@
                     @endif
                 </form>
             @endauth
+            @auth
+                <form method="POST" action="{{ auth()->user()->completedActivities->contains($activity->id)
+                    ? route('activities.uncompleted', $activity->id)
+                    : route('activities.completed', $activity->id) }}">
+                    @csrf
+                    @if (auth()->user()->completedActivities->contains($activity->id))
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">Unmark as Completed</button>
+                    @else
+                        <button type="submit" class="btn btn-success">Mark as Completed</button>
+                    @endif
+                </form>
+            @endauth
+
         </div>
     </div>
 </div>
