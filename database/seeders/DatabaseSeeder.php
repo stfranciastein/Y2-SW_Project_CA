@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserEmission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         UserEmission::create([
-            'user_id' => $gale->id,
+            'user_id' => 1,
             'baseline_food' => 75,
             'baseline_waste' => 50,
             'baseline_energy' => 60,
