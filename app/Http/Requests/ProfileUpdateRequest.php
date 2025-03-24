@@ -27,6 +27,7 @@ class ProfileUpdateRequest extends FormRequest
             ],
             'country' => ['required', 'string', 'max:255'],
             'biography' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'max:2048'], // Max 2MB
         ];
     }
     

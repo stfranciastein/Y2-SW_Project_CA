@@ -8,6 +8,10 @@
 
             <!-- Display Profile Info -->
             <div id="profile-display">
+            <img src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
+     alt="Profile Picture"
+     class="rounded-circle"
+     style="width: 150px; height: 150px; object-fit: cover;">
                 <p><strong>Name:</strong> {{ auth()->user()->name }}</p>
                 <p><strong>Country:</strong> {{ auth()->user()->country }}</p>
                 <p><strong>Biography:</strong> {{ auth()->user()->biography }}</p>

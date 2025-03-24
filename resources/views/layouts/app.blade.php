@@ -16,13 +16,18 @@
     <!-- CDN For Countries List -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <!-- Scripts -->
+    <!-- Cropper.js for cropping images -->
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet" />
+
+    <!-- Scripts ------------------------------------------------------------------------------------------------------->
     @vite(['resources/sass/app.scss', 'resources/js/app.js']) <!-- Default Bootstrap. Replace later on final week. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- This is charts.js -->
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.js"></script> <!-- Cropper.js script-->
 
+    <!-- Select2 and jquery for country dropdown. -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <!-- -------------------------------------------------------------------------------------------------------------->
 
     @stack('styles')
 </head>

@@ -11,9 +11,21 @@
             @csrf
         </form>
 
-        <form method="POST" action="{{ route('profile.update') }}">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
             @csrf
             @method('patch')
+
+            <!-- Profile Picture Upload-->
+            <div class="mb-3">
+                <label for="profile_picture" class="form-label">Profile Picture</label>
+                <input type="file" class="form-control" id="profile_picture_input" accept="image/*">
+
+                <div class="mt-3">
+                    <img id="profile_preview" style="max-width: 100%; display: none;" />
+                </div>
+
+                <input type="hidden" name="cropped_image" id="cropped_image_input">
+            </div>
 
             <div class="row mb-3">
                 <label for="name" class="col-md-4 col-form-label text-md-end">
@@ -107,11 +119,6 @@
         </form>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#country').select2({
-            placeholder: "Select your country",
-            allowClear: true
-        });
-    });
-</script>
+<script src="{{ asset('js/cropper.js') }}"></script>
+<script src="{{ asset('js/country.js') }}"></script>
+

@@ -32,6 +32,28 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($request->filled('cropped_image')) {
+            $base64Image = $request->input('cropped_image');
+            $image = str_replace('data:image/png;base64,', '', $base64Image);
+            $image = str_replace(' ', '+', $image);
+
+            //Gives image a human-readable name
+            $randomInt = random_int(10000, 99999);
+            $sanitizedName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->user()->name);
+            $imageName = $request->user()->id . '_' . $sanitizedName . '_' . $randomInt . '.png';
+            
+            $imagePath = 'profile_pictures/' . $imageName;
+        
+            // Delete previous image if it exists and is not the default
+            if ($request->user()->image_url && $request->user()->image_url !== 'images/default-profile.png') {
+                \Storage::disk('public')->delete($request->user()->image_url);
+            }
+        
+            \Storage::disk('public')->put($imagePath, base64_decode($image));
+            $request->user()->image_url = $imagePath;
+        }
+        
+              
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
