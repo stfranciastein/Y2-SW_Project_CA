@@ -9,7 +9,8 @@
         <div class="mb-3">
             <label class="form-label">How often do you eat meat?</label>
             <select name="baseline_food" class="form-control">
-                <option value="100" {{ (old('baseline_food', $emissions->baseline_food ?? '') == 100) ? 'selected' : '' }}>Every day</option>
+            <option value="100" {{ ($emissions->baseline_food ?? '') == 100 ? 'selected' : '' }}>Every day</option>
+
                 <option value="75" {{ (old('baseline_food', $emissions->baseline_food ?? '') == 75) ? 'selected' : '' }}>A few times a week</option>
                 <option value="50" {{ (old('baseline_food', $emissions->baseline_food ?? '') == 50) ? 'selected' : '' }}>Occasionally</option>
                 <option value="25" {{ (old('baseline_food', $emissions->baseline_food ?? '') == 25) ? 'selected' : '' }}>Rarely</option>
@@ -20,11 +21,11 @@
         <div class="mb-3">
             <label class="form-label">How often do you recycle?</label>
             <select name="baseline_waste" class="form-control">
-                <option value="0" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 0) ? 'selected' : '' }}>Never</option>
-                <option value="25" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 25) ? 'selected' : '' }}>Rarely</option>
+                <option value="100" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 100) ? 'selected' : '' }}>Never</option>
+                <option value="75" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 75) ? 'selected' : '' }}>Rarely</option>
                 <option value="50" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 50) ? 'selected' : '' }}>Sometimes</option>
-                <option value="75" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 75) ? 'selected' : '' }}>Most of the time</option>
-                <option value="100" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 100) ? 'selected' : '' }}>Always</option>
+                <option value="25" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 25) ? 'selected' : '' }}>Most of the time</option>
+                <option value="0" {{ (old('baseline_waste', $emissions->baseline_waste ?? '') == 0) ? 'selected' : '' }}>Always</option>
             </select>
         </div>
 

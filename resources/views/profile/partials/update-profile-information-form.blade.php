@@ -10,6 +10,7 @@
         >
             @csrf
         </form>
+
         <form method="POST" action="{{ route('profile.update') }}">
             @csrf
             @method('patch')
@@ -18,14 +19,11 @@
                 <label for="name" class="col-md-4 col-form-label text-md-end">
                     {{ __('Name') }}
                 </label>
-
                 <div class="col-md-6">
-                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name">
-
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                        name="name" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name">
                     @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
                 </div>
             </div>
@@ -34,26 +32,21 @@
                 <label for="email" class="col-md-4 col-form-label text-md-end">
                     {{ __('Email') }}
                 </label>
-
                 <div class="col-md-6">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required autocomplete="email">
-
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email', $user->email) }}" required autocomplete="email">
                     @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                     @enderror
 
                     @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                         <div class="mt-2">
                             <p class="mb-0">
                                 {{ __('Your email address is unverified.') }}
-
                                 <button form="send-verification" class="btn btn-link p-0">
                                     {{ __('Click here to re-send the verification email.') }}
                                 </button>
                             </p>
-
                             @if (session('status') === 'verification-link-sent')
                                 <div class="alert alert-success mt-3 mb-0" role="alert">
                                     {{ __('A new verification link has been sent to your email address.') }}
@@ -61,6 +54,35 @@
                             @endif
                         </div>
                     @endif
+                </div>
+            </div>
+
+            <!-- Country Field -->
+            <div class="row mb-3">
+                <label for="country" class="col-md-4 col-form-label text-md-end">
+                    {{ __('Country') }}
+                </label>
+                <div class="col-md-6">
+                    <input id="country" type="text" class="form-control @error('country') is-invalid @enderror"
+                        name="country" value="{{ old('country', $user->country) }}" required>
+                    @error('country')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Biography Field -->
+            <div class="row mb-3">
+                <label for="biography" class="col-md-4 col-form-label text-md-end">
+                    {{ __('Biography') }}
+                </label>
+                <div class="col-md-6">
+                    <textarea id="biography" name="biography"
+                        class="form-control @error('biography') is-invalid @enderror"
+                        rows="3">{{ old('biography', $user->biography) }}</textarea>
+                    @error('biography')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                    @enderror
                 </div>
             </div>
 
