@@ -51,16 +51,16 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-center {{ request()->routeIs('favouritedactivities.index') ? 'active' : '' }}" href="{{ route('favouritedactivities.index') }}">
-                    <i class="fas fa-heart fa-2x"></i>
-                    <span class="d-block">Favourites</span>
+                <a class="nav-link text-center {{ request()->routeIs('activities.index') ? 'active' : '' }}" href="{{ route('activities.index') }}">
+                    <i class="fas fa-clipboard-list fa-2x"></i>
+                    <span class="d-block">Activities</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link text-center {{ request()->routeIs('activities.index') ? 'active' : '' }}" href="{{ route('activities.index') }}">
-                    <i class="fas fa-clipboard-list fa-2x"></i>
-                    <span class="d-block">Activities</span>
+                    <i class="fas fa-newspaper fa-2x"></i>
+                    <span class="d-block">News</span>
                 </a>
             </li>
 

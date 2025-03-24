@@ -36,32 +36,112 @@
     const emissionsChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Food', 'Waste', 'Energy', 'Land', 'Air', 'Sea'],
-            datasets: [{
-                label: 'Baseline Emissions',
-                data: [
-                    {{ $emissions->baseline_food }},
-                    {{ $emissions->baseline_waste }},
-                    {{ $emissions->baseline_energy }},
-                    {{ $emissions->baseline_land }},
-                    {{ $emissions->baseline_air }},
-                    {{ $emissions->baseline_sea }}
-                ],
-                backgroundColor: 'rgba(33, 37, 41, 0.7)',
-                borderColor: 'rgba(33, 37, 41, 1)',
-                borderWidth: 1
-            }]
+            labels: ['Your Emissions', 'National Average', 'Global Average'],
+            datasets: [
+                {
+                    label: 'Food',
+                    data: [
+                        {{ $emissions->baseline_food }},
+                        {{ $countryEmissions['food'] ?? 0 }},
+                        {{ $overallEmissions['food'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(13, 228, 145, 0.7)', // Food color
+                    borderColor: 'rgb(15, 199, 128)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Waste',
+                    data: [
+                        {{ $emissions->baseline_waste }},
+                        {{ $countryEmissions['waste'] ?? 0 }},
+                        {{ $overallEmissions['waste'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(255, 159, 64, 0.7)', // Waste color
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Energy',
+                    data: [
+                        {{ $emissions->baseline_energy }},
+                        {{ $countryEmissions['energy'] ?? 0 }},
+                        {{ $overallEmissions['energy'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)', // Energy color
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Land',
+                    data: [
+                        {{ $emissions->baseline_land }},
+                        {{ $countryEmissions['land'] ?? 0 }},
+                        {{ $overallEmissions['land'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)', // Land color
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Air',
+                    data: [
+                        {{ $emissions->baseline_air }},
+                        {{ $countryEmissions['air'] ?? 0 }},
+                        {{ $overallEmissions['air'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(153, 102, 255, 0.7)', // Air color
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Sea',
+                    data: [
+                        {{ $emissions->baseline_sea }},
+                        {{ $countryEmissions['sea'] ?? 0 }},
+                        {{ $overallEmissions['sea'] ?? 0 }}
+                    ],
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)', // Sea color
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
         },
         options: {
             responsive: true,
             scales: {
+                x: {
+                    stacked: true, // Enable stacking on the x-axis
+                    grid: {
+                        display: false,
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    stacked: true, // Enable stacking on the y-axis
+                    max: 600, // YOU NEED TO CHANGE THIS LATER.
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false,
+                    },
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom', // Position of the legend
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + '%';
+                        }
+                    }
                 }
             }
         }
     });
 </script>
+
 
 @endsection
