@@ -22,7 +22,7 @@
         <!-- General Activities Tab -->
         <div class="tab-pane fade {{ $activeTab === 'general' ? 'show active' : '' }}" id="general" role="tabpanel" aria-labelledby="general-tab">
             <div class="row">
-                @foreach($activities as $activity)
+                @foreach($activities->whereNotIn('id', auth()->user()->completedActivities->pluck('id')) as $activity)
                     <div class="col-md-6 mb-4">
                         <x-activity-card :activity="$activity" />
                     </div>

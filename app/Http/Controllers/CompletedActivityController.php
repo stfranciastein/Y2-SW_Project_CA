@@ -16,6 +16,7 @@ class CompletedActivityController extends Controller
         $user = auth()->user();
         $user->level = $user->calculateLevel(); // Calculate the new level
         $user->save(); // Save the updated level
+        $user->favouritedActivities()->detach($activity->id); //Detaches completed activities from favourited activities.
 
         return back()->with('success', 'Activity completed.');
     }
