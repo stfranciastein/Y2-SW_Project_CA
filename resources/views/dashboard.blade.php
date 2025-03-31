@@ -5,12 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    {{ __("You're logged in!") }}
-                </div>
-
+                <div class="card-header" id="greeting"></div>
                 <div class="container mt-4">
                     <h3>Your Emission Breakdown</h3>
                     <canvas id="emissionsChart" width="400" height="400"></canvas>
@@ -42,6 +37,21 @@
         data: {
             labels: ['Your Emissions', 'National Average', 'Global Average'],
             datasets: [
+                // 2030 Target Line (targeting 2 tons per person for global emissions in 2030)
+                {
+                    label: '2030 Target',
+                    data: [2000, 2000, 2000], // 2 tons (2000 kg) per person target for each category
+                    type: 'line',
+                    fill: false,
+                    borderColor: 'rgba(0, 0, 0, 1)', 
+                    borderWidth: 2,
+                    borderDash: [10, 3], // Dotted line style (5px dash, 5px gap)
+                    pointRadius: 0, // Removes points on the line
+                    tension: 0, 
+                    spanGaps: true, 
+                    order: 0, 
+                    xAxisID: 'x', 
+                },
                 {
                     label: 'Food',
                     data: [
@@ -51,7 +61,8 @@
                     ],
                     backgroundColor: 'rgba(13, 228, 145, 0.7)', // Food color
                     borderColor: 'rgb(15, 199, 128)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 },
                 {
                     label: 'Waste',
@@ -62,7 +73,8 @@
                     ],
                     backgroundColor: 'rgba(255, 159, 64, 0.7)', // Waste color
                     borderColor: 'rgba(255, 159, 64, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 },
                 {
                     label: 'Energy',
@@ -73,7 +85,8 @@
                     ],
                     backgroundColor: 'rgba(54, 162, 235, 0.7)', // Energy color
                     borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 },
                 {
                     label: 'Land',
@@ -84,7 +97,8 @@
                     ],
                     backgroundColor: 'rgba(75, 192, 192, 0.7)', // Land color
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 },
                 {
                     label: 'Air',
@@ -95,7 +109,8 @@
                     ],
                     backgroundColor: 'rgba(153, 102, 255, 0.7)', // Air color
                     borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 },
                 {
                     label: 'Sea',
@@ -106,7 +121,8 @@
                     ],
                     backgroundColor: 'rgba(255, 99, 132, 0.7)', // Sea color
                     borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    order: 1 
                 }
             ]
         },
@@ -117,7 +133,10 @@
                     stacked: true, // Enable stacking on the x-axis
                     grid: {
                         display: false,
-                    }
+                    },
+                    ticks: {
+                        autoSkip: false,
+                    },
                 },
                 y: {
                     beginAtZero: true,
@@ -145,9 +164,6 @@
         }
     });
 </script>
-
-
-
-
-
+<div id="user-name" data-user="{{ auth()->user()->name }}" style="display: none;"></div>
+<script src="{{ asset('js/greeter.js') }}"></script>
 @endsection

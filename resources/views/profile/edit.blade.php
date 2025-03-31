@@ -15,6 +15,22 @@
                 <p><strong>Country:</strong> {{ auth()->user()->country }}</p>
                 <p><strong>Biography:</strong> {{ auth()->user()->biography }}</p>
                 <p><strong>Level:</strong> {{ auth()->user()->level }}</p>
+
+                <!-- Progress Bar for Completed Activities -->
+                <p><strong>Activities Completed:</strong> 
+                    {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
+                </p>
+
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 
+                        {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%" 
+                        aria-valuenow="{{ auth()->user()->completedActivities->count() }}" 
+                        aria-valuemin="0" 
+                        aria-valuemax="5">
+                    </div>
+                </div>
+
+                <!-- Profile Buttons -->
                 <button class="btn btn-dark mt-3" onclick="toggleEdit(true)">Edit Profile</button>
                 <a href="{{ route('onboarding') }}" class="btn btn-dark mt-3">Update Emissions</a>
 
