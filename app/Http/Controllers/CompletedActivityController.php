@@ -18,7 +18,7 @@ class CompletedActivityController extends Controller
         $user->save(); // Save the updated level
         $user->favouritedActivities()->detach($activity->id); //Detaches completed activities from favourited activities.
 
-        return back()->with('success', 'Activity completed.');
+        return redirect()->route('activities.index')->with('success', 'Activity completed.');
     }
 
     public function destroy(Activity $activity)
@@ -30,6 +30,6 @@ class CompletedActivityController extends Controller
         $user->level = $user->calculateLevel(); // Recalculate the level after detaching the activity
         $user->save(); // Save the updated level
 
-        return back()->with('success', 'Activity uncompleted.');
+        return redirect()->route('activities.index')->with('success', 'Activity uncompleted.');
     }
 }

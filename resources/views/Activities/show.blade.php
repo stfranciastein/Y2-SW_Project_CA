@@ -13,18 +13,21 @@
             <p><strong>Difficulty:</strong> {{ $activity->difficulty }}</p>
 
             @auth
-                <form method="POST" action="{{ auth()->user()->favouritedActivities->contains($activity->id)
-                    ? route('activities.unfavourite', $activity->id)
-                    : route('activities.favourite', $activity->id) }}">
-                    @csrf
-                    @if (auth()->user()->favouritedActivities->contains($activity->id))
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger">Unfavourite</button>
-                    @else
-                        <button type="submit" class="btn btn-dark">Favourite</button>
-                    @endif
-                </form>
+                @if (!auth()->user()->completedActivities->contains($activity->id)) <!-- Only show favourite button if not completed -->
+                    <form method="POST" action="{{ auth()->user()->favouritedActivities->contains($activity->id)
+                        ? route('activities.unfavourite', $activity->id)
+                        : route('activities.favourite', $activity->id) }}">
+                        @csrf
+                        @if (auth()->user()->favouritedActivities->contains($activity->id))
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-danger">Unfavourite</button>
+                        @else
+                            <button type="submit" class="btn btn-dark">Favourite</button>
+                        @endif
+                    </form>
+                @endif
             @endauth
+
             @auth
                 <form method="POST" action="{{ auth()->user()->completedActivities->contains($activity->id)
                     ? route('activities.uncompleted', $activity->id)
@@ -42,6 +45,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

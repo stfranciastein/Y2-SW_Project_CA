@@ -16,10 +16,14 @@ class ActivityController extends Controller
     {
         $activities = Activity::all();
 
-        $favouritedActivities = auth()->user()->favouritedActivities;
+        $favouritedActivities = auth()->user()->favouritedActivities()
+        ->orderBy('favourited_activities.created_at', 'desc')  // Sort by pivot table created_at field
+        ->get();
 
         //Remember the completed activities need to subract from the user's baseline emissions with the corresponding reduction emission from activity.
-        $completedActivities = auth()->user()->completedActivities;
+        $completedActivities = auth()->user()->completedActivities()
+        ->orderBy('completed_activities.created_at', 'desc')  // Sort by pivot table created_at field
+        ->get();
 
         $activeTab = $request->query('tab', 'general');
 
