@@ -71,6 +71,12 @@ class User extends Authenticatable
     return $this->belongsToMany(Activity::class, 'completed_activities')->withTimestamps();
     }
 
+    //Defines One-To-Many relationship with ActivityReduction model
+    public function activityReductions()
+    {
+    return $this->hasMany(ActivityReduction::class);
+    }
+
     // User.php (Model)
     public function calculateLevel()
     {

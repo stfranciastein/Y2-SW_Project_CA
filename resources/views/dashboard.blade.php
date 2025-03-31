@@ -45,7 +45,7 @@
                 {
                     label: 'Food',
                     data: [
-                        {{ $emissions->baseline_food }},
+                        {{ $emissions->food }},
                         {{ $countryEmissions['food'] ?? 0 }},
                         {{ $overallEmissions['food'] ?? 0 }}
                     ],
@@ -56,7 +56,7 @@
                 {
                     label: 'Waste',
                     data: [
-                        {{ $emissions->baseline_waste }},
+                        {{ $emissions->waste }},
                         {{ $countryEmissions['waste'] ?? 0 }},
                         {{ $overallEmissions['waste'] ?? 0 }}
                     ],
@@ -67,7 +67,7 @@
                 {
                     label: 'Energy',
                     data: [
-                        {{ $emissions->baseline_energy }},
+                        {{ $emissions->energy }},
                         {{ $countryEmissions['energy'] ?? 0 }},
                         {{ $overallEmissions['energy'] ?? 0 }}
                     ],
@@ -78,7 +78,7 @@
                 {
                     label: 'Land',
                     data: [
-                        {{ $emissions->baseline_land }},
+                        {{ $emissions->land }},
                         {{ $countryEmissions['land'] ?? 0 }},
                         {{ $overallEmissions['land'] ?? 0 }}
                     ],
@@ -89,7 +89,7 @@
                 {
                     label: 'Air',
                     data: [
-                        {{ $emissions->baseline_air }},
+                        {{ $emissions->air }},
                         {{ $countryEmissions['air'] ?? 0 }},
                         {{ $overallEmissions['air'] ?? 0 }}
                     ],
@@ -100,7 +100,7 @@
                 {
                     label: 'Sea',
                     data: [
-                        {{ $emissions->baseline_sea }},
+                        {{ $emissions->sea }},
                         {{ $countryEmissions['sea'] ?? 0 }},
                         {{ $overallEmissions['sea'] ?? 0 }}
                     ],
@@ -145,6 +145,9 @@
         }
     });
 </script>
+
+
+
 
 
 @endsection

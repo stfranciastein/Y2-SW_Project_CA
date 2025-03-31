@@ -12,4 +12,10 @@ class Activity extends Model
         'reduction_land', 'reduction_air', 'reduction_sea', 'category'
     ];
     
+    //Defines One-To-Many relationship with ActivityReduction model
+    public function activityReductions()
+    {
+    return $this->hasMany(ActivityReduction::class);
+    }
+
 }
