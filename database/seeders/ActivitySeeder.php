@@ -22,6 +22,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 10,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
+                'category' => 'Land',
             ],
             [
                 'name' => 'Go Meat-Free for a Week',
@@ -35,6 +36,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
+                'category' => 'Food',
             ],
             [
                 'name' => 'Install LED Light Bulbs',
@@ -48,6 +50,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
+                'category' => 'Energy',
             ],
             [
                 'name' => 'Recycle All Household Waste This Week',
@@ -61,6 +64,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
+                'category' => 'Waste',
             ],
             [
                 'name' => 'Avoid a Flight for Your Next Trip',
@@ -74,6 +78,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 20,
                 'reduction_sea' => 0,
+                'category' => 'Air',
             ],
         ];
 

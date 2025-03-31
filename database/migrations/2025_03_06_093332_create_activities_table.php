@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('reduction_land')->default(0);
             $table->unsignedSmallInteger('reduction_air')->default(0);
             $table->unsignedSmallInteger('reduction_sea')->default(0);
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }
