@@ -71,5 +71,18 @@ class User extends Authenticatable
     return $this->belongsToMany(Activity::class, 'completed_activities')->withTimestamps();
     }
 
+    // User.php (Model)
+    public function calculateLevel()
+    {
+    // Counts how many activities the user has completed
+    $completedActivitiesCount = $this->completedActivities->count();
+
+    // Calculate the level based on the number of completed activities
+    // Level 1 starts from 0 activities, level 2 after 5 activities, level 3 after 10 activities, etc.
+    $level = 1 + floor($completedActivitiesCount / 5); // Level 1 after 0, Level 2 after 5, Level 3 after 10, etc.
+
+    return $level;
+}
+
 
 }
