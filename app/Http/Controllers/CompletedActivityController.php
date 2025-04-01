@@ -12,7 +12,7 @@ class CompletedActivityController extends Controller
     public function store(Activity $activity)
     {
         auth()->user()->completedActivities()->attach($activity->id);
-
+    
         // Store the reduction in the activity_reductions table
         $user = auth()->user();
         $reduction = new ActivityReduction([
@@ -26,15 +26,27 @@ class CompletedActivityController extends Controller
             'reduction_sea' => $activity->reduction_sea,
         ]);
         $reduction->save();
-
+    
         // Update the user's level based on the number of completed activities
         $user->level = $user->calculateLevel();
         $user->save();
-
-        $user->favouritedActivities()->detach($activity->id); // Detach completed activities from favourited activities
-
+    
+        // Detach completed activities from favourites
+        $user->favouritedActivities()->detach($activity->id);
+    
+        // Award achievements based on number of completed activities
+        $completedCount = $user->completedActivities()->count();
+        $eligibleAchievements = \App\Models\Achievement::where('points_required', '<=', $completedCount)
+            ->whereNotIn('id', $user->achievements->pluck('id'))
+            ->get();
+    
+        if ($eligibleAchievements->isNotEmpty()) {
+            $user->achievements()->attach($eligibleAchievements);
+        }
+    
         return redirect()->route('activities.index')->with('success', 'Activity completed.');
     }
+    
 
     public function destroy(Activity $activity)
     {

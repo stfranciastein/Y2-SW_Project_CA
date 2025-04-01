@@ -87,5 +87,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         $this->call(ActivitySeeder::class);
         $this->call(AppPostSeeder::class);
+        $this->call(AchievementSeeder::class);
+
     }
 }

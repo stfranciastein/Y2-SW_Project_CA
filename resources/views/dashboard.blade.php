@@ -27,6 +27,57 @@
                 @endif
 
             </div>
+
+            <div class="container mt-5">
+    <h3>Achievements</h3>
+
+    @php
+        $unlocked = auth()->user()->achievements;
+        $locked = \App\Models\Achievement::whereNotIn('id', $unlocked->pluck('id'))->get();
+    @endphp
+
+    @if($unlocked->count())
+        <h5 class="mt-4">Unlocked</h5>
+        <div class="row">
+            @foreach($unlocked as $achievement)
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success">
+                        @if($achievement->image_url)
+                            <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
+                        @endif
+                        <div class="card-body">
+                            <h6 class="card-title">{{ $achievement->description }}</h6>
+                            <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
+                            <span class="badge bg-success">Unlocked</span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+
+    @if($locked->count())
+        <h5 class="mt-4">Locked</h5>
+        <div class="row">
+            @foreach($locked as $achievement)
+                <div class="col-md-4 mb-3">
+                    <div class="card opacity-50">
+                        @if($achievement->image_url)
+                            <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
+                        @endif
+                        <div class="card-body">
+                            <h6 class="card-title">{{ $achievement->description }}</h6>
+                            <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
+                            <span class="badge bg-secondary">Locked</span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
+
+
         </div>
     </div>
 </div>

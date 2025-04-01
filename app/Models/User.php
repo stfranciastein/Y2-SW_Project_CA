@@ -90,5 +90,10 @@ class User extends Authenticatable
     return $level;
 }
 
+    //Defines Belongs-To-Many relationship with Achievements model
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class)->withTimestamps();
+    }
 
 }
