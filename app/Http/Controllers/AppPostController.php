@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class AppPostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Display all appposts
         $appposts = AppPost::latest()->get();
-        return view('appPosts.index', compact('appposts'));
-    }
+        $activeTab = $request->query('tab', 'news');
+        return view('appPosts.index', compact('appposts', 'activeTab'));
+    }   
 
     public function create()
     {
