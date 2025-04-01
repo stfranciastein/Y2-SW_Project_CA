@@ -7,59 +7,94 @@ use Illuminate\Http\Request;
 
 class AppPostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        // Display all appposts
+        $appposts = AppPost::latest()->get();
+        return view('appPosts.index', compact('appposts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Show the form to create a new apppost
+        return view('appPosts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validate and create a new apppost
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'content' => 'required|string',
+            'category' => 'required|in:news,event,announcement',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        // Handle the file upload for image
+        if ($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('posts', 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        AppPost::create([
+            'title' => $request->title,
+            'user_id' => auth()->id(),
+            'description' => $request->description,
+            'content' => $request->content,
+            'category' => $request->category,
+            'image_url' => $imagePath,
+        ]);
+
+        return redirect()->route('appposts.index')->with('success', 'Post created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AppPost $appPost)
+    public function show(AppPost $apppost)
     {
-        //
+        // Show a single apppost
+        return view('appPosts.show', compact('apppost'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AppPost $appPost)
+    public function edit(AppPost $apppost)
     {
-        //
+        // Show the form to edit an apppost
+        return view('appPosts.edit', compact('apppost'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, AppPost $appPost)
+    public function update(Request $request, AppPost $apppost)
     {
-        //
+        // Validate and update the apppost
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'content' => 'required|string',
+            'category' => 'required|in:news,event,announcement',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        // Handle the file upload for image
+        if ($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('posts', 'public');
+        } else {
+            $imagePath = $apppost->image_url; // Keep the original image if no new image is uploaded
+        }
+
+        $apppost->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'category' => $request->category,
+            'image_url' => $imagePath,
+        ]);
+
+        return redirect()->route('appposts.index')->with('success', 'Post updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AppPost $appPost)
+    public function destroy(AppPost $apppost)
     {
-        //
+        // Delete the apppost
+        $apppost->delete();
+        return redirect()->route('appposts.index')->with('success', 'Post deleted successfully');
     }
 }

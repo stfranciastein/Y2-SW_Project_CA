@@ -58,7 +58,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-center {{ request()->routeIs('activities.index') ? 'active' : '' }}" href="{{ route('activities.index') }}">
+                <a class="nav-link text-center {{ request()->routeIs('appposts.index') ? 'active' : '' }}" href="{{ route('appposts.index') }}">
                     <i class="fas fa-newspaper fa-2x"></i>
                     <span class="d-block">News</span>
                 </a>

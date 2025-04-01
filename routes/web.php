@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\FavouritedActivityController;
 use App\Http\Controllers\CompletedActivityController;
+use App\Http\Controllers\AppPostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,8 +31,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     // Single route for the activities index page with 3 tabs
     Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
+    Route::get('/activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
 });
-Route::get('/activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
+
 
 // Favourited Activity Routes
 Route::middleware('auth')->group(function () {
@@ -50,6 +52,11 @@ Route::middleware('auth')->group(function () {
         Route::post('{activity}/completed', 'store')->name('activities.completed');
         Route::delete('{activity}/completed', 'destroy')->name('activities.uncompleted');
     });
+});
+
+// AppPost Routes
+Route::middleware(['auth'])->group(function () {
+    Route::resource('appposts', AppPostController::class);
 });
 
 require __DIR__.'/auth.php';
