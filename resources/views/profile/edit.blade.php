@@ -30,12 +30,14 @@
                     </div>
                 </div>
 
+
                 <!-- Profile Buttons -->
                 <button class="btn btn-dark mt-3" onclick="toggleEdit(true)">Edit Profile</button>
                 <a href="{{ route('onboarding') }}" class="btn btn-dark mt-3">Update Emissions</a>
 
             </div>
 
+            <!-- EVERYTHING AFTER THIS SHOULD JUST BE THE EDIT FORMS -->
             <!-- Editable Profile Form -->
             <div id="profile-form" style="display: none;">
                 <!-- Edit Profile Info -->
