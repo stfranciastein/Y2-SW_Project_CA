@@ -22,7 +22,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 150,  
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Land',
+                'category' => 'land',
             ],
             [
                 'name' => 'Go Meat-Free for a Week',
@@ -36,7 +36,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Food',
+                'category' => 'food',
             ],
             [
                 'name' => 'Install LED Light Bulbs',
@@ -50,7 +50,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Energy',
+                'category' => 'energy',
             ],
             [
                 'name' => 'Recycle All Household Waste This Week',
@@ -64,7 +64,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Waste',
+                'category' => 'waste',
             ],
             [
                 'name' => 'Avoid a Flight for Your Next Trip',
@@ -78,7 +78,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 200,  
                 'reduction_sea' => 0,
-                'category' => 'Air',
+                'category' => 'air',
             ],
             [
                 'name' => 'Switch to a Green Energy Supplier',
@@ -92,7 +92,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Energy',
+                'category' => 'energy',
             ],
             [
                 'name' => 'Use a Clothesline Instead of a Dryer',
@@ -106,7 +106,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Energy',
+                'category' => 'energy',
             ],
             [
                 'name' => 'Switch to a Plant-Based Milk',
@@ -120,7 +120,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Food',
+                'category' => 'food',
             ],
             [
                 'name' => 'Plant Trees in Your Community',
@@ -134,7 +134,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 300,  
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Land',
+                'category' => 'land',
             ],
             [
                 'name' => 'Buy Locally Grown Produce',
@@ -148,7 +148,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Food',
+                'category' => 'food',
             ],
             [
                 'name' => 'Compost Your Organic Waste',
@@ -162,7 +162,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Waste',
+                'category' => 'waste',
             ],
             [
                 'name' => 'Install a Smart Thermostat',
@@ -176,7 +176,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Energy',
+                'category' => 'energy',
             ],
             [
                 'name' => 'Reduce Single-Use Plastic Usage',
@@ -190,7 +190,7 @@ class ActivitySeeder extends Seeder
                 'reduction_land' => 0,
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
-                'category' => 'Waste',
+                'category' => 'waste',
             ]
         ];
 
