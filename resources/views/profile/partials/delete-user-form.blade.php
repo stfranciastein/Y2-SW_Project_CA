@@ -1,16 +1,27 @@
-<div class="card">
-    <div class="card-header">{{ __('Delete Account') }}</div>
+<div class="accordion" id="deleteAccountAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="deleteAccountHeading">
+            <button class="accordion-button collapsed no-style-toggle" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#deleteAccountCollapse"
+                aria-expanded="false"
+                aria-controls="deleteAccountCollapse">
+                {{ __('Delete Account') }}
+            </button>
+        </h2>
+        <div id="deleteAccountCollapse" class="accordion-collapse collapse" aria-labelledby="deleteAccountHeading" data-bs-parent="#deleteAccountAccordion">
+            <div class="accordion-body">
+                <div class="mb-3">
+                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+                </div>
 
-    <div class="card-body">
-        <div class="mb-3">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
-        </div>
-
-        <div class="row mb-0">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                    {{ __('Delete Account') }}
-                </button>
+                <div class="row mb-0">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                            {{ __('Delete Account') }}
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -28,7 +39,7 @@
       </div>
       <div class="modal-body">
         <div class="mb-3">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+            {{ __('Please enter your password to confirm you would like to permanently delete your account.') }}
         </div>
         <form id="deleteAccountForm" method="post" action="{{ route('profile.destroy') }}" class="p-6">
             @csrf
@@ -57,6 +68,7 @@
   </div>
 </div>
 
+<!-- Show modal if validation error exists -->
 @push('scripts')
     @php $shouldOpenModal = $errors->userDeletion->isNotEmpty(); @endphp
 
@@ -66,8 +78,22 @@
         if (shouldOpenModal) {
             window.addEventListener('load', function() {
                 let deleteAccountModal = new bootstrap.Modal('#deleteAccountModal');
-                deleteAccountModal.toggle();
+                deleteAccountModal.show();
             });
         }
     </script>
-@endPush
+@endpush
+
+<!-- Accordion style override -->
+<style>
+    .accordion-button.no-style-toggle {
+        background-color: white !important;
+        color: inherit !important;
+        box-shadow: none !important;
+    }
+
+    .accordion-button.no-style-toggle:not(.collapsed) {
+        background-color: white !important;
+        color: inherit !important;
+    }
+</style>

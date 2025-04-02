@@ -56,6 +56,8 @@ class DashboardController extends Controller
             'sea' => max(0, $emissions->baseline_sea - $totalReductions['sea']),
         ];
 
+        $userTotalEmissions = array_sum($userEmissions);
+
         // Calculate the average emissions for users in the same country with reductions
         $countryEmissions = UserEmission::where('user_id', '!=', $user->id)
             ->whereHas('user', function ($query) use ($user) {
@@ -65,22 +67,33 @@ class DashboardController extends Controller
                          AVG(baseline_land) as land, AVG(baseline_air) as air, AVG(baseline_sea) as sea')
             ->first();
 
-        // If no other users are found, set country emissions to the user's own emissions
-        // This doesn't seem to want to work. Just skip it.
-        // if (!$countryEmissions) {
-        //     $countryEmissions = $userEmissions;
-        // }
+        $countryAverageEmissions = $countryEmissions
+            ? $countryEmissions->food + $countryEmissions->waste + $countryEmissions->energy + $countryEmissions->land + $countryEmissions->air + $countryEmissions->sea
+            : null;
 
         // Calculate the overall average emissions for all users with reductions
         $overallEmissions = UserEmission::selectRaw('AVG(baseline_food) as food, AVG(baseline_waste) as waste, AVG(baseline_energy) as energy, 
                                                     AVG(baseline_land) as land, AVG(baseline_air) as air, AVG(baseline_sea) as sea')
             ->first();
 
+        $difference = $countryAverageEmissions ? $userTotalEmissions - $countryAverageEmissions : null;
+        $percentDiff = $countryAverageEmissions ? round(($difference / $countryAverageEmissions) * 100) : null;
+        $globalTotalEmissions = $overallEmissions->food + $overallEmissions->waste + $overallEmissions->energy + $overallEmissions->land + $overallEmissions->air + $overallEmissions->sea;
+        $globalDifference = $globalTotalEmissions ? $userTotalEmissions - $globalTotalEmissions : null;
+        $globalPercentDiff = $globalTotalEmissions ? round(($globalDifference / $globalTotalEmissions) * 100) : null;
+        $unlocked = auth()->user()->achievements()->orderByPivot('created_at', 'desc')->get();
+
+
         return view('dashboard', [
             'emissions' => (object) $userEmissions,
             'favouritedActivities' => $favouritedActivities,
             'countryEmissions' => $countryEmissions,
             'overallEmissions' => $overallEmissions,
+            'userTotalEmissions' => $userTotalEmissions,
+            'countryAverageEmissions' => $countryAverageEmissions,
+            'percentDiff'=> $percentDiff,
+            'globalPercentDiff' => $globalPercentDiff,
+            'unlocked' => $unlocked
         ]);
     }
 }

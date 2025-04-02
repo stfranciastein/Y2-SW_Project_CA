@@ -7,23 +7,39 @@
 
             <!-- Display Profile Info -->
             <div id="profile-display">
-
                 <div class="pt-3 row d-flex align-items-center">
-                    <div class="col-5">
+                    <div class="col-6">
                         <img src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
                             alt="Profile Picture"
-                            class="rounded-circle img-fluid object-fit-cover border-gray-300">
+                            class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto d-block">
                     </div>
-                    <div class="col-7">
-                        <p class="mb-2"><strong>{{ auth()->user()->name }}</strong></p>
-                        <p class="mb-2 fst-italic">{{ auth()->user()->country }}</p>
-                        <p class="mb-2"><strong>Level:</strong> {{ auth()->user()->level }}</p>
+                    <div class="col-6 row">
+                        <div class="col-lg-12 col-12 d-lg-flex gap-5">
+                            <p class="mb-2"><strong>{{ auth()->user()->name }}</strong></p>
+                            <p class="mb-2 fst-italic">{{ auth()->user()->country }}</p>
+                            <p class="mb-2"><strong>Level:</strong> {{ auth()->user()->level }}</p>
+                        </div>
+                        <!-- This will onl display on large screens, while the one outside will only display on smaller ones. --> 
+                        <p class="mt-3 mb-3 col-12 d-none d-lg-block">
+                            {{ auth()->user()->biography }}
+                        </p>
+                        <div class="row d-none d-lg-flex">
+                            <div class="col-6">
+                                <button class="btn btn-dark mb-2 w-100" onclick="toggleEdit(true)">Edit Profile</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-dark mb-2 w-100" onclick="window.location='{{ route('onboarding') }}'">Update Emissions</button>
+                            </div>
+                        </div>
                     </div>
+                    <p class="mt-3 mb-3 col-12 d-block d-lg-none">
+                        {{ auth()->user()->biography }}
+                    </p>
                 </div>
-                <p class="mt-3 mb-3">{{ auth()->user()->biography }}</p>
+
 
                 <!-- Profile Buttons -->
-                <div class="row">
+                <div class="row d-lg-none">
                     <div class="col-6">
                         <button class="btn btn-dark mb-2 w-100" onclick="toggleEdit(true)">Edit Profile</button>
                     </div>
@@ -37,10 +53,13 @@
                     {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
                 </p>
                 <div class="progress mb-3">
-                    <div class="progress-bar" role="progressbar" style="width: 
-                        {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%" 
-                        aria-valuenow="{{ auth()->user()->completedActivities->count() }}" 
-                        aria-valuemin="0" 
+                    <div class="progress-bar" role="progressbar"
+                        style="
+                            width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
+                            background-image: linear-gradient(90deg,rgb(19, 228, 165),rgb(15, 141, 199));
+                        "
+                        aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
+                        aria-valuemin="0"
                         aria-valuemax="5">
                     </div>
                 </div>
@@ -153,17 +172,10 @@
 
                 <!-- Change Password Section -->
                 <div class="mt-5">
-                    <h4 class="mb-3">Change Password</h4>
                     <div class="mb-4">
                         @include('profile.partials.update-password-form')
-                    </div>
-                </div>
-
-                <!-- Delete Account Section -->
-                <div class="mt-5">
-                    <h4 class="mb-3 text-danger">Delete Account</h4>
-                    <div>
                         @include('profile.partials.delete-user-form')
+                        @include('profile.partials.logout-form')
                     </div>
                 </div>
             </div>

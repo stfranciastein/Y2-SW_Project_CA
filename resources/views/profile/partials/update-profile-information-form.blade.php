@@ -20,7 +20,7 @@
                     <img id="profile_display"
                     src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
                     alt="Profile Picture"
-                    class="rounded-circle img-fluid object-fit-cover border-gray-300 w-50 mx-auto  mb-2">
+                    class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto mb-2">
 
 
                     <!-- Upload Button -->

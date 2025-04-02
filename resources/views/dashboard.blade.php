@@ -1,14 +1,84 @@
 @extends('layouts.app')
-
 @section('content')
+<style>
+.draggable-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.draggable-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.achievement-card {
+    min-width: 250px;
+    flex: 0 0 auto;
+    cursor: grab;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header" id="greeting"></div>
-                <div class="container mt-4">
-                    <h3>Your Emission Breakdown</h3>
-                    <canvas id="emissionsChart" width="400" height="400"></canvas>
+            <div class="card border-0">
+                <div class="p-3 border-0" id="greeting"></div>
+                <div class="container mt-0">
+                    <h3 class="mb-5 ps-1">Your Current Emissions</h3>
+                    <canvas id="emissionsChart" width="400" height="500"></canvas>
+                </div>
+            </div>
+
+            <!-- This contains all of the dashboard cards -->
+            <div class="container mt-5">
+
+                <!-- Your National Position -->
+                <div class="card p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-flag fa-2x me-3 text-info"></i>
+                            <div>
+                                <p class="mb-0 fw-bold"></p>
+                                <small class="text-muted">
+                                    @if($percentDiff !== null)
+                                        You are currently 
+                                        <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ $percentDiff !== null ? ($percentDiff < 0 ? '-' : '+') . abs($percentDiff) . '%' : 'N/A' }} {{ $percentDiff < 0 ? 'below' : 'above' }}
+                                        </span>
+                                        your country's average
+                                    @else
+                                        No comparison data available
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your Global Position -->
+                <div class="card p-3 my-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-globe-americas fa-2x me-3 text-secondary"></i>
+                            <div>
+                                <small class="text-muted">
+                                    @if($globalPercentDiff !== null)
+                                        You are currently 
+                                        <span class="{{ $globalPercentDiff < 0 ? 'text-success' : 'text-danger' }}">
+                                            {{ $globalPercentDiff < 0 ? '-' : '+' }}{{ abs($globalPercentDiff) }}% {{ $globalPercentDiff < 0 ? 'below' : 'above' }}
+                                        </span>
+                                        the global average
+                                    @else
+                                        No comparison data available
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 @if($favouritedActivities->count() > 0)
@@ -26,61 +96,33 @@
 
                 @endif
 
+            
+                <h3>Recently Unlocked</h3>
+                @if($unlocked->count())
+                    <div id="unlockedCarousel" class="draggable-carousel mb-3">
+                        @foreach($unlocked as $achievement)
+                            <div class="card border-success achievement-card">
+                                @if($achievement->image_url)
+                                    <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
+                                @endif
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ $achievement->description }}</h6>
+                                    <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
+                                    <span class="badge bg-success">Unlocked</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+
             </div>
-
-            <div class="container mt-5">
-    <h3>Achievements</h3>
-
-    @php
-        $unlocked = auth()->user()->achievements;
-        $locked = \App\Models\Achievement::whereNotIn('id', $unlocked->pluck('id'))->get();
-    @endphp
-
-    @if($unlocked->count())
-        <h5 class="mt-4">Unlocked</h5>
-        <div class="row">
-            @foreach($unlocked as $achievement)
-                <div class="col-md-4 mb-3">
-                    <div class="card border-success">
-                        @if($achievement->image_url)
-                            <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
-                        @endif
-                        <div class="card-body">
-                            <h6 class="card-title">{{ $achievement->description }}</h6>
-                            <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
-                            <span class="badge bg-success">Unlocked</span>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-
-    @if($locked->count())
-        <h5 class="mt-4">Locked</h5>
-        <div class="row">
-            @foreach($locked as $achievement)
-                <div class="col-md-4 mb-3">
-                    <div class="card opacity-50">
-                        @if($achievement->image_url)
-                            <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
-                        @endif
-                        <div class="card-body">
-                            <h6 class="card-title">{{ $achievement->description }}</h6>
-                            <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
-                            <span class="badge bg-secondary">Locked</span>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-</div>
 
 
         </div>
     </div>
 </div>
+<!-- This is the bar chart -->
 <script>
     const ctx = document.getElementById('emissionsChart').getContext('2d');
     const emissionsChart = new Chart(ctx, {
@@ -215,6 +257,8 @@
         }
     });
 </script>
-<div id="user-name" data-user="{{ auth()->user()->name }}" style="display: none;"></div>
+<!--------------------------->
+<div id="user-name" data-user="{{ auth()->user()->name }}" style="display: none;"></div> <!-- This is required for the greeting message -->
 <script src="{{ asset('js/greeter.js') }}"></script>
+<script src="{{ asset('js/drag.js') }}"></script> <!-- This is so the achievement cards are draggable -->
 @endsection
