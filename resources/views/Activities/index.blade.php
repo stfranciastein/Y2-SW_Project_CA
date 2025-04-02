@@ -21,7 +21,7 @@
         <div class="tab-pane fade {{ $activeTab === 'general' ? 'show active' : '' }}" id="general" role="tabpanel" aria-labelledby="general-tab">
             <div id="category-selector" class="row">
                 @php
-                    $categories = ['all' => 'All Activities', 'Energy' => 'Energy', 'food' => 'Food', 'waste' => 'Waste', 'land' => 'Land', 'air' => 'Air', 'sea' => 'Sea'];
+                    $categories = ['all' => 'All Activities', 'energy' => 'Energy', 'food' => 'Food', 'waste' => 'Waste', 'land' => 'Land', 'air' => 'Air', 'sea' => 'Sea'];
                 @endphp
 
                 @foreach($categories as $key => $label)

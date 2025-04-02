@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image_url' => 'images/default.png', // set default here
+            'image_url' => 'profile_pictures/default.png', // set default here
             'country' => null,
             'biography' => null,
             'level' => 1,

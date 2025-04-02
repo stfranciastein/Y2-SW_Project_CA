@@ -14,7 +14,7 @@
             <img src="{{ asset('storage/' . $activity->image_url) }}" class="card-img-top" alt="{{ $activity->title }}">
         @endif
         <div class="card-body">
-            <p class="card-text">{{ $activity->category }}</p>
+            <p class="card-text text-capitalize">{{ $activity->category }}</p>
             <h2 class="card-name">{{ $activity->name }}</h2>
             <ul class="d-flex gap-5 p-0">
             <p><strong>Impact Points:</strong> {{ $activity->impact_points }}</p>

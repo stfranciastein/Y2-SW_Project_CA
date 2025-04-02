@@ -44,7 +44,12 @@
             @yield('content')
         </main>
     </div>
+    <!-- This is here so that the bottom navbar will have no overlap on mobile views -->
+    <div class="container mb-5"> 
+    </div>
 
     @stack('scripts')
+
+
 </body>
 </html>
