@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'country' => 'Ireland',
             'biography' => 'A process known as ceremorphosis?! It is to be avoided.',
-            'image_url' => null,
+            'image_url' => 'profile_pictures/admin.png',
             'level' => 1,
             'role' => 'admin',
             'remember_token' => Str::random(10),

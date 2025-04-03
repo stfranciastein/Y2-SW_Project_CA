@@ -96,9 +96,13 @@
 
                 @endif
 
-            
-                <h3>Recently Unlocked</h3>
                 @if($unlocked->count())
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Recently Unlocked</h5>
+                    <a href="{{ route('achievements.index') }}" class="text-decoration-none text-dark">
+                        <i class="fas fa-arrow-right fa-lg"></i>
+                    </a>
+                </div>
                     <div id="unlockedCarousel" class="draggable-carousel mb-3">
                         @foreach($unlocked as $achievement)
                             <div class="card border-success achievement-card">
@@ -106,8 +110,8 @@
                                     <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
                                 @endif
                                 <div class="card-body">
-                                    <h6 class="card-title">{{ $achievement->description }}</h6>
-                                    <p class="card-text"><strong>Requirement:</strong> {{ $achievement->points_required }} activities</p>
+                                    <h6 class="card-title fw-bold">{{ $achievement->name }}</h6>
+                                    <p class="fs-7">{{ $achievement->description }}</p>
                                     <span class="badge bg-success">Unlocked</span>
                                 </div>
                             </div>

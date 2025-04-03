@@ -7,6 +7,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\FavouritedActivityController;
 use App\Http\Controllers\CompletedActivityController;
 use App\Http\Controllers\AppPostController;
+use App\Http\Controllers\AchievementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -58,5 +59,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('appposts', AppPostController::class);
 });
+
+//Achievement Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/achievements', [AchievementController::class, 'index'])->name('achievements.index');
+});
+
 
 require __DIR__.'/auth.php';

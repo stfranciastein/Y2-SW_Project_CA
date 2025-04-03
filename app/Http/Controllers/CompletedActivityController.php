@@ -11,10 +11,10 @@ class CompletedActivityController extends Controller
 {
     public function store(Activity $activity)
     {
-        auth()->user()->completedActivities()->attach($activity->id);
+        $user = auth()->user();
+        $user->completedActivities()->attach($activity->id);
     
         // Store the reduction in the activity_reductions table
-        $user = auth()->user();
         $reduction = new ActivityReduction([
             'user_id' => $user->id,
             'activity_id' => $activity->id,
@@ -34,20 +34,56 @@ class CompletedActivityController extends Controller
         // Detach completed activities from favourites
         $user->favouritedActivities()->detach($activity->id);
     
-        // Award achievements based on number of completed activities
+        // Count completed activities per category
+        $completedByCategory = $user->completedActivities()
+            ->selectRaw('category, COUNT(*) as count')
+            ->groupBy('category')
+            ->pluck('count', 'category'); // ['energy' => 3, 'food' => 2, etc.]
+    
         $completedCount = $user->completedActivities()->count();
-        $eligibleAchievements = \App\Models\Achievement::where('points_required', '<=', $completedCount)
-            ->whereNotIn('id', $user->achievements->pluck('id'))
+        $alreadyUnlocked = $user->achievements->pluck('id');
+    
+        // General achievements
+        $generalAchievements = \App\Models\Achievement::where('category', 'general')
+            ->where('points_required', '<=', $completedCount)
+            ->whereNotIn('id', $alreadyUnlocked)
             ->get();
     
-        if ($eligibleAchievements->isNotEmpty()) {
-            $user->achievements()->attach($eligibleAchievements);
+        // Category-based achievements
+        $categoryAchievements = \App\Models\Achievement::where('category', '!=', 'general')
+            ->whereNotIn('id', $alreadyUnlocked)
+            ->get()
+            ->filter(function ($achievement) use ($completedByCategory) {
+                return isset($completedByCategory[$achievement->category]) &&
+                       $completedByCategory[$achievement->category] >= $achievement->points_required;
+            });
+    
+        // All-category achievement
+        $allCategories = ['energy', 'food', 'waste', 'land', 'air', 'sea'];
+        $hasAllCategories = !array_diff($allCategories, $completedByCategory->keys()->toArray());
+        $allTypesAchievement = null;
+    
+        if ($hasAllCategories) {
+            $allTypesAchievement = \App\Models\Achievement::where('category', 'general')
+                ->where('description', 'Completed all activity types')->first();
+        }
+    
+        $toUnlock = $generalAchievements
+            ->merge($categoryAchievements);
+    
+        if ($allTypesAchievement && !$alreadyUnlocked->contains($allTypesAchievement->id)) {
+            $toUnlock->push($allTypesAchievement);
+        }
+    
+        if ($toUnlock->isNotEmpty()) {
+            $user->achievements()->attach($toUnlock);
         }
     
         return redirect()->route('activities.index')->with('success', 'Activity completed.');
     }
-    
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     public function destroy(Activity $activity)
     {
         auth()->user()->completedActivities()->detach($activity->id);

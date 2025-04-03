@@ -191,7 +191,21 @@ class ActivitySeeder extends Seeder
                 'reduction_air' => 0,
                 'reduction_sea' => 0,
                 'category' => 'waste',
-            ]
+            ],
+            [
+                'name' => 'Reduce Plastic Use Near Water',
+                'description' => 'Avoid single-use plastics and properly dispose of waste to protect marine ecosystems.',
+                'difficulty' => 'Medium',
+                'impact_points' => 40,
+                'image_url' => null,
+                'reduction_food' => 0,
+                'reduction_waste' => 0,
+                'reduction_energy' => 0,
+                'reduction_land' => 0,
+                'reduction_air' => 0,
+                'reduction_sea' => 150,
+                'category' => 'sea',
+            ],            
         ];
 
         foreach ($activities as $activity) {

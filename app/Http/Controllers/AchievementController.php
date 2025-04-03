@@ -12,8 +12,8 @@ class AchievementController extends Controller
      */
     public function index()
     {
-        //
-    }
+        return view('achievements.index');
+    }    
 
     /**
      * Show the form for creating a new resource.

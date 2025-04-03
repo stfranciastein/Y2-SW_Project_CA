@@ -7,7 +7,7 @@
 
             <!-- Display Profile Info -->
             <div id="profile-display">
-                <div class="pt-3 row d-flex align-items-center">
+                <div class="pt-3 row d-flex align-items-center mb-lg-4">
                     <div class="col-6">
                         <img src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
                             alt="Profile Picture"
@@ -30,6 +30,21 @@
                             <div class="col-6">
                                 <button class="btn btn-dark mb-2 w-100" onclick="window.location='{{ route('onboarding') }}'">Update Emissions</button>
                             </div>
+                            <p class="mt-2"><strong>Activities Completed:</strong> 
+                                {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
+                            </p>
+                            <div class="progress mb-3" style="height: 20px; padding: 0; margin: 0; border-radius: 0;">
+                                <div class="progress-bar" role="progressbar"
+                                    style="
+                                        width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
+                                        background-image: linear-gradient(90deg, rgb(19, 228, 165), rgb(15, 141, 199));
+                                        border-radius: 0;
+                                        margin: 0;"
+                                    aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
+                                    aria-valuemin="0"
+                                    aria-valuemax="5">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <p class="mt-3 mb-3 col-12 d-block d-lg-none">
@@ -48,19 +63,21 @@
                     </div>
                 </div>
 
+                <div class="d-lg-none">
                 <!-- Progress Bar for Completed Activities -->
                 <p class="mt-2"><strong>Activities Completed:</strong> 
                     {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
                 </p>
-                <div class="progress mb-3">
-                    <div class="progress-bar" role="progressbar"
-                        style="
-                            width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
-                            background-image: linear-gradient(90deg,rgb(19, 228, 165),rgb(15, 141, 199));
-                        "
-                        aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
-                        aria-valuemin="0"
-                        aria-valuemax="5">
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar"
+                            style="
+                                width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
+                                background-image: linear-gradient(90deg,rgb(19, 228, 165),rgb(15, 141, 199));
+                            "
+                            aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
+                            aria-valuemin="0"
+                            aria-valuemax="5">
+                        </div>
                     </div>
                 </div>
 
@@ -144,7 +161,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="p-3 col-12">
+                    <div class="p-3 col-12 d-flex justify-content-center">
                     <canvas id="emissionsPieChart"></canvas>
                     </div>
                     <div class="text-center m-3">
