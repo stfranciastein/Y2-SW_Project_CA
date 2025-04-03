@@ -1,34 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<style>
-.draggable-carousel {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 10px;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* IE/Edge */
-    scrollbar-width: none;     /* Firefox */
-}
-
-.draggable-carousel::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-}
-
-.achievement-card {
-    min-width: 250px;
-    flex: 0 0 auto;
-    cursor: grab;
-}
-</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card border-0">
-                <div class="p-3 border-0" id="greeting"></div>
+                <div class="p-3 mb-0 border-0 h5 fs-5" id="greeting"></div>
                 <div class="container mt-0">
-                    <h3 class="mb-5 ps-1">Your Current Emissions</h3>
+                    <h3 class="mb-5 ps-1 fs-2">Your Current Emissions</h3>
                     <canvas id="emissionsChart" width="400" height="500"></canvas>
                 </div>
             </div>
@@ -81,8 +59,14 @@
                     </div>
                 </div>
 
+                
                 @if($favouritedActivities->count() > 0)
-                    <h2>Your Favourited Activities</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Your Favourites</h5>
+                    <a href="{{ route('activities.index', ['tab' => 'favourited']) }}" class="text-decoration-none text-dark">
+                        <i class="fas fa-arrow-right fa-lg"></i>
+                    </a>
+                </div>
                     <div class="row">
                         @foreach($favouritedActivities as $activity)
                             <div class="col-md-6 mb-4">
@@ -90,10 +74,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="text-center mt-4">
-                        <a href="{{ route('activities.index', ['tab' => 'favourited']) }}" class="btn btn-primary">See All Favourited Activities</a>
-                    </div>
-
                 @endif
 
                 @if($unlocked->count())
@@ -137,7 +117,7 @@
                 // 2030 Target Line (targeting 2 tons per person for global emissions in 2030)
                 {
                     label: '2030 Target',
-                    data: [2000, 2000, 2000], // 2 tons (2000 kg) per person target for each category
+                    data: [1000, 1000, 1000], // 2 tons (2000 kg) per person target for each category
                     type: 'line',
                     fill: false,
                     borderColor: 'rgba(0, 0, 0, 1)', 
@@ -243,7 +223,11 @@
                     },
                     grid: {
                         display: false,
+                        drawBorder: false 
                     },
+                    border: {
+                        display: false
+                    }
                 }
             },
             plugins: {

@@ -23,6 +23,27 @@ h1, h2, h3, h4, h5 {
     animation-fill-mode: forwards;
 }
 
+.draggable-carousel {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+.draggable-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.achievement-card {
+    min-width: 250px;
+    flex: 0 0 auto;
+    cursor: grab;
+}
+
 @keyframes fadeOut {
     0% {
         opacity:1;
