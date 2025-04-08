@@ -13,4 +13,4 @@ if (hours >= 0 && hours < 12) {
     greeting += "Evening";
 }
 
-document.getElementById("greeting").innerHTML = ` ${greeting}, ${userName}!`;
+document.getElementById("greeting").innerHTML = ` ${greeting}, ${userName}.`;

@@ -3,11 +3,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card border-0">
-                <div class="p-3 mb-0 border-0 h5 fs-5" id="greeting"></div>
+            <div class="card border-0 text-center">
+                <div class="p-3 mb-0 border-0 fs-5 fw-bold" id="greeting"></div>
+                <div class="mt-2 border-bottom border-2 border-black pb-2">
+                    <p class="fs-6 text-muted fw-medium">You've saved {{ number_format($totalSaved) }} kg of CO₂ a year. Congrats! That’s the equivalent of planting {{ $treeEquivalent }} tree{{ $treeEquivalent !== 1 ? 's' : '' }} per year.</p>
+                    <small class="text-muted"></small>
+                </div>
+
                 <div class="container mt-0">
-                    <h3 class="mb-5 ps-1 fs-2">Your Current Emissions</h3>
-                    <canvas id="emissionsChart" width="400" height="500"></canvas>
+                    <h3 class="mb-5 ps-1 fs-4 pt-3 fw-bold text-uppercase">Emissions Breakdown</h3>
+                    <canvas id="emissionsChart" width="200" height="200"></canvas>
                 </div>
             </div>
 
@@ -15,45 +20,45 @@
             <div class="container mt-5">
 
                 <!-- Your National Position -->
-                <div class="card p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-flag fa-2x me-3 text-info"></i>
-                            <div>
-                                <p class="mb-0 fw-bold"></p>
-                                <small class="text-muted">
-                                    @if($percentDiff !== null)
-                                        You are currently 
-                                        <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ $percentDiff !== null ? ($percentDiff < 0 ? '-' : '+') . abs($percentDiff) . '%' : 'N/A' }} {{ $percentDiff < 0 ? 'below' : 'above' }}
-                                        </span>
-                                        your country's average
-                                    @else
-                                        No comparison data available
-                                    @endif
-                                </small>
+                <div class="d-flex gap-2 mb-4">
+                    <div class="col-6 card p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-flag fa-2x me-3 text-info"></i>
+                                <div>
+                                    <p class="mb-0 fw-bold"></p>
+                                    <small class="text-muted">
+                                        @if($percentDiff !== null)
+                                            <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }}">
+                                            {{ $percentDiff !== null ? ($percentDiff < 0 ? '-' : '+') . abs($percentDiff) . '%' : 'N/A' }} {{ $percentDiff < 0 ? 'below' : 'above' }}
+                                            </span>
+                                            your country's average
+                                        @else
+                                            No comparison data available
+                                        @endif
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Your Global Position -->
-                <div class="card p-3 my-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-globe-americas fa-2x me-3 text-secondary"></i>
-                            <div>
-                                <small class="text-muted">
-                                    @if($globalPercentDiff !== null)
-                                        You are currently 
-                                        <span class="{{ $globalPercentDiff < 0 ? 'text-success' : 'text-danger' }}">
-                                            {{ $globalPercentDiff < 0 ? '-' : '+' }}{{ abs($globalPercentDiff) }}% {{ $globalPercentDiff < 0 ? 'below' : 'above' }}
-                                        </span>
-                                        the global average
-                                    @else
-                                        No comparison data available
-                                    @endif
-                                </small>
+                    <!-- Your Global Position -->
+                    <div class="col-6 card p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-globe-americas fa-2x me-3 text-secondary"></i>
+                                <div>
+                                    <small class="text-muted">
+                                        @if($globalPercentDiff !== null) 
+                                            <span class="{{ $globalPercentDiff < 0 ? 'text-success' : 'text-danger' }}">
+                                                {{ $globalPercentDiff < 0 ? '-' : '+' }}{{ abs($globalPercentDiff) }}% {{ $globalPercentDiff < 0 ? 'below' : 'above' }}
+                                            </span>
+                                            the global average
+                                        @else
+                                            No comparison data available
+                                        @endif
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>

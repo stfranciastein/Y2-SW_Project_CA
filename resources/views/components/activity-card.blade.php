@@ -1,10 +1,10 @@
 <a href="{{ route('activities.show', $activity->id) }}" class="text-decoration-none text-dark">
-    <div class="card h-100">
+    <div class="card border-0 h-100 shadow-sm">
         @if ($activity->image_url)
             <img src="{{ asset('storage/' . $activity->image_url) }}" class="card-img-top" alt="{{ $activity->title }}">
         @endif
         <div class="card-body">
-            <h5 class="card-name">{{ $activity->name }}</h5>
+            <h5 class="card-name fw-bold fs-6">{{ $activity->name }}</h5>
             <span class="badge bg-secondary">Impact: {{ $activity->impact_points }}</span>
 
             @php

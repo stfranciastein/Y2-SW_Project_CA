@@ -83,6 +83,18 @@ class DashboardController extends Controller
         $globalPercentDiff = $globalTotalEmissions ? round(($globalDifference / $globalTotalEmissions) * 100) : null;
         $unlocked = auth()->user()->achievements()->orderByPivot('created_at', 'desc')->get();
 
+        //This is for the greeting message
+        $totalSaved = auth()->user()->activityReductions->sum(function ($reduction) {
+            return $reduction->reduction_food +
+                   $reduction->reduction_waste +
+                   $reduction->reduction_energy +
+                   $reduction->reduction_land +
+                   $reduction->reduction_air +
+                   $reduction->reduction_sea;
+        });
+        // Hey, did you know that apparently 1 tree absorbs roughly 21 kg CO2 per year
+        $treeEquivalent = $totalSaved > 0 ? floor($totalSaved / 21) : 0;
+
 
         return view('dashboard', [
             'emissions' => (object) $userEmissions,
@@ -93,7 +105,9 @@ class DashboardController extends Controller
             'countryAverageEmissions' => $countryAverageEmissions,
             'percentDiff'=> $percentDiff,
             'globalPercentDiff' => $globalPercentDiff,
-            'unlocked' => $unlocked
+            'unlocked' => $unlocked,
+            'totalSaved' => $totalSaved,
+            'treeEquivalent' => $treeEquivalent
         ]);
     }
 }
