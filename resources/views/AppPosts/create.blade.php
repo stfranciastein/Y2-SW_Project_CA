@@ -3,12 +3,10 @@
 @section('content')
 <div class="container">
 
-    <!-- Button will only show if you're an admin -->
-    @if($role === 'admin' || $role === 'moderator')
-        <a href="{{ route('appposts.edit', $apppost->id) }}" class="btn btn-warning mb-3">
-            <i class="fas fa-edit"></i> Edit This Post
-        </a>
-    @endif
+    <!-- Top Back Button -->
+    <a href="{{ route('appposts.index') }}" class="btn mb-3">
+        <i class="fas fa-arrow-left"></i> Editing Post
+    </a>
 
     <form method="POST" action="{{ isset($apppost) ? route('appposts.update', $apppost->id) : route('appposts.store') }}" enctype="multipart/form-data">
         @csrf
@@ -52,9 +50,14 @@
             @endif
         </div>
 
-        <button type="submit" class="btn btn-primary">
-            {{ isset($apppost) ? 'Update Post' : 'Create Post' }}
-        </button>
+        <div class="d-flex gap-1">
+            <button type="submit" class="btn btn-primary">
+                {{ isset($apppost) ? 'Update Post' : 'Create Post' }}
+            </button>
+            <a href="{{ route('appposts.index') }}" class="btn">
+                Cancel
+            </a>
+        </div>
     </form>
 </div>
 @endsection

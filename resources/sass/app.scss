@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5 {
     animation-fill-mode: forwards;
 }
 
+/* For the carousel on DASHBOARD */
 .draggable-carousel {
     display: flex;
     gap: 1rem;
@@ -43,6 +44,32 @@ h1, h2, h3, h4, h5 {
     flex: 0 0 auto;
     cursor: grab;
 }
+
+/* The big first letter thing in news */
+.first-letter-large::first-letter {
+    font-size: 3rem;
+    font-weight: bold;
+    float: left;
+    line-height: 1;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+    font-family: 'DM Serif Display', serif; // optional if you're using this font
+}
+
+/* Draggable announcement */
+.announcement-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.announcement-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+
 
 @keyframes fadeOut {
     0% {

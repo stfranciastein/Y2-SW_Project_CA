@@ -11,7 +11,11 @@ class AppPostController extends Controller
     {
         $appposts = AppPost::latest()->get();
         $activeTab = $request->query('tab', 'news');
-        return view('appPosts.index', compact('appposts', 'activeTab'));
+        $newsPosts = $appposts->where('category', 'news');
+        $latestNews = $newsPosts->first();
+        $remainingNews = $newsPosts->skip(1);
+
+        return view('appPosts.index', compact('appposts', 'activeTab', 'newsPosts', 'latestNews', 'remainingNews'));
     }   
 
     public function create()
@@ -28,7 +32,7 @@ class AppPostController extends Controller
             'description' => 'nullable|string|max:255',
             'content' => 'required|string',
             'category' => 'required|in:news,event,announcement',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
         // Handle the file upload for image
@@ -52,13 +56,14 @@ class AppPostController extends Controller
 
     public function show(AppPost $apppost)
     {
-        // Show a single apppost
-        return view('appPosts.show', compact('apppost'));
+        $role = auth()->user()->role;
+
+        return view('appPosts.show', compact('apppost', 'role'));
     }
 
     public function edit(AppPost $apppost)
     {
-        // Show the form to edit an apppost
+        // Show the form to edit an apppost you just reused create because create handles the difference
         return view('appPosts.create', compact('apppost'));
     }
 

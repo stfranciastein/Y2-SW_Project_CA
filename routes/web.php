@@ -57,15 +57,17 @@ Route::middleware('auth')->group(function () {
 
 // AppPost Routes
 Route::middleware(['auth'])->group(function () {
-    // Admin-moderator routes for create
-    Route::get('/appposts/create', [AppPostController::class, 'create'])
-        ->middleware('adminOrModerator')
-        ->name('appposts.create');
+    Route::middleware(['adminOrModerator'])->group(function () {
+        Route::get('/appposts/create', [AppPostController::class, 'create'])->name('appposts.create');
+        Route::get('/appposts/{apppost}/edit', [AppPostController::class, 'edit'])->name('appposts.edit');
+        Route::put('/appposts/{apppost}', [AppPostController::class, 'update'])->name('appposts.update');
+        Route::delete('/appposts/{apppost}', [AppPostController::class, 'destroy'])->name('appposts.destroy');
+    });
 
-
-    // The rest of the AppPost routes
-    Route::resource('appposts', AppPostController::class)->except(['create']);
+    Route::resource('appposts', AppPostController::class)->only(['index', 'show', 'store']);
 });
+
+
 
 
 //Achievement Routes

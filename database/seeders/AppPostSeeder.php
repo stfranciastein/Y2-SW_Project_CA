@@ -17,7 +17,7 @@ class AppPostSeeder extends Seeder
 
         $posts = [
             [
-                'title' => 'Climate Action Hits Milestone',
+                'title' => 'With the Great Mussel Die-Off, Scientists Scramble for Answers',
                 'description' => 'Global emissions saw a 5% drop in 2024.',
                 'content' => 'In an encouraging report, climate scientists have observed a measurable drop in CO2 output, largely due to changes in transport and energy.',
                 'category' => 'news',
