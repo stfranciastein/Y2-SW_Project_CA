@@ -59,7 +59,7 @@ class AppPostController extends Controller
     public function edit(AppPost $apppost)
     {
         // Show the form to edit an apppost
-        return view('appPosts.edit', compact('apppost'));
+        return view('appPosts.create', compact('apppost'));
     }
 
     public function update(Request $request, AppPost $apppost)

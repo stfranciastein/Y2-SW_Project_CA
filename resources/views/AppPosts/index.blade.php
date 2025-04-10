@@ -2,8 +2,15 @@
 
 @section('content')
 <div class="container">
-    <h2>Updates</h2>
 
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Updates</h2>
+        <a href="{{ route('appposts.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-1"></i> Create Post
+        </a>
+    </div>
+    
     <!-- Tab Navigation -->
     <ul class="nav nav-tabs" id="postTabs" role="tablist">
         <li class="nav-item" role="presentation">

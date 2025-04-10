@@ -5,6 +5,9 @@
     <a href="{{ route('appposts.index') }}" class="btn btn-outline-secondary mb-3">
         <i class="fas fa-arrow-left"></i> Back to Posts
     </a>
+    <a href="{{ route('appposts.edit', $apppost->id) }}" class="btn btn-warning mb-3">
+        <i class="fas fa-edit"></i> Edit This Post
+    </a>
 
     <div class="card">
         @if ($apppost->image_url)
