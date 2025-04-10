@@ -15,7 +15,7 @@ class AppPostController extends Controller
         $latestNews = $newsPosts->first();
         $remainingNews = $newsPosts->skip(1);
 
-        return view('appPosts.index', compact('appposts', 'activeTab', 'newsPosts', 'latestNews', 'remainingNews'));
+        return view('appposts.index', compact('appposts', 'activeTab', 'newsPosts', 'latestNews', 'remainingNews'));
     }   
 
     public function create()
