@@ -21,7 +21,7 @@ class AppPostController extends Controller
     public function create()
     {
         // Show the form to create a new apppost
-        return view('appPosts.create');
+        return view('appposts.create');
     }
 
     public function store(Request $request)
@@ -58,13 +58,13 @@ class AppPostController extends Controller
     {
         $role = auth()->user()->role;
 
-        return view('appPosts.show', compact('apppost', 'role'));
+        return view('appposts.show', compact('apppost', 'role'));
     }
 
     public function edit(AppPost $apppost)
     {
         // Show the form to edit an apppost you just reused create because create handles the difference
-        return view('appPosts.create', compact('apppost'));
+        return view('appposts.create', compact('apppost'));
     }
 
     public function update(Request $request, AppPost $apppost)
