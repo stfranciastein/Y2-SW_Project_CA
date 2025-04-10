@@ -1,43 +1,31 @@
 <!-- Regular Top Navbar (for larger screens) -->
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-none d-md-block sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
-            {{ __('PLANIT') }}
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-2 flex-column align-items-center d-none d-md-flex">
+    <!-- Centered Title -->
+    <div class="text-center mb-2">
+        <a class="navbar-brand fw-bold fs-3 text-dark h2 fst-italic" href="{{ url('/') }}">
+            PLANIT
         </a>
+    </div>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto"></ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                            {{ __('Profile') }}
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                            {{ __('Log Out') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            </ul>
-        </div>
+    <!-- Nav Links Below Title -->
+    <div class="container d-flex justify-content-center">
+        <ul class="navbar-nav flex-row gap-4">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('activities.index') }}">Activities</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('appposts.index') }}">Updates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('profile.edit') }}">Profile</a>
+            </li>
+        </ul>
     </div>
 </nav>
+
 
 <!-- Bottom Navbar (for smaller screens) -->
 <nav class="navbar navbar-light bg-white shadow-sm fixed-bottom d-md-none">

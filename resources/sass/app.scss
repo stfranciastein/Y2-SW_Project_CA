@@ -1,6 +1,5 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Tilt+Warp&display=swap');
 
 // Variables
 @import 'variables';
@@ -10,11 +9,11 @@
 
 
 body {
-    font-family: 'Spectral', serif;
+    font-family: 'Lato', sans-serif;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Lato', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tilt Warp', sans-serif;
 }
 
 
@@ -69,6 +68,35 @@ h1, h2, h3, h4, h5 {
     display: none;
 }
 
+.badge-food {
+    background-color: #4CAF50; // green
+    color: white;
+}
+
+.badge-waste {
+    background-color: #9C27B0; // purple
+    color: white;
+}
+
+.badge-energy {
+    background-color: #FF9800; // orange
+    color: white;
+}
+
+.badge-air {
+    background-color: #03A9F4; // blue
+    color: white;
+}
+
+.badge-land {
+    background-color: #795548; // brown
+    color: white;
+}
+
+.badge-sea {
+    background-color: #00BCD4; // teal
+    color: white;
+}
 
 
 @keyframes fadeOut {

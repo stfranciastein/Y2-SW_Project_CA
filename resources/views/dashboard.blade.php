@@ -4,33 +4,36 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card border-0 text-center">
-                <div class="p-3 mb-0 border-0 fs-5 fw-bold" id="greeting"></div>
-                <div class="mt-2 border-bottom border-2 border-black pb-2">
-                    <p class="fs-6 text-muted fw-medium">You've saved {{ number_format($totalSaved) }} kg of CO₂ a year. Congrats! That’s the equivalent of planting {{ $treeEquivalent }} tree{{ $treeEquivalent !== 1 ? 's' : '' }} per year.</p>
+                <div class="p-3 mb-0 border-0 fs-5 h3" id="greeting"></div>
+                <div class="mt-2 border-bottom border-1 border-black pb-2">
+                    <p class="fs-6 text-muted fw-medium">You've saved {{ number_format($totalSaved) }} kg of CO₂ a year. Congratulations! That’s roughly the equivalent of planting {{ $treeEquivalent }} tree{{ $treeEquivalent !== 1 ? 's' : '' }} per year.</p>
                     <small class="text-muted"></small>
                 </div>
 
                 <div class="container mt-0">
-                    <h3 class="mb-5 ps-1 fs-4 pt-3 fw-bold text-uppercase">Emissions Breakdown</h3>
+                    <h3 class="ps-1 fs-3 pt-3 text-uppercase">Emissions Breakdown</h3>
+                    <p class="mb-5 fst-italic text-muted">*Your emissions are calculated in kgs of CO2/year</p>
                     <canvas id="emissionsChart" width="200" height="200"></canvas>
                 </div>
             </div>
 
             <!-- This contains all of the dashboard cards -->
-            <div class="container mt-5">
+            <div class="container mt-4">
 
-                <!-- Your National Position -->
-                <div class="d-flex gap-2 mb-4">
-                    <div class="col-6 card p-3">
+                <!-- Position Section -->
+                <div class="d-flex gap-3 mb-4">
+                    <!-- Your National Position -->
+                    <div class="card p-3 flex-fill border-0" style="background-image: url('{{ asset('images/placeholder.png') }}'); background-size: cover; background-position: center;">
                         <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-flag fa-2x me-3 text-info"></i>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-info" style="width: 50px; aspect-ratio: 1 / 1;">
+                                    <i class="fas fa-flag text-white"></i>
+                                </div>
                                 <div>
-                                    <p class="mb-0 fw-bold"></p>
                                     <small class="text-muted">
                                         @if($percentDiff !== null)
                                             <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }}">
-                                            {{ $percentDiff !== null ? ($percentDiff < 0 ? '-' : '+') . abs($percentDiff) . '%' : 'N/A' }} {{ $percentDiff < 0 ? 'below' : 'above' }}
+                                                {{ $percentDiff < 0 ? '-' : '+' }}{{ abs($percentDiff) }}% {{ $percentDiff < 0 ? 'below' : 'above' }}
                                             </span>
                                             your country's average
                                         @else
@@ -43,10 +46,12 @@
                     </div>
 
                     <!-- Your Global Position -->
-                    <div class="col-6 card p-3">
+                    <div class="card p-3 flex-fill border-0" style="background-image: url('{{ asset('images/placeholder.png') }}'); background-size: cover; background-position: center;">
                         <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-globe-americas fa-2x me-3 text-secondary"></i>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-info" style="width: 50px; aspect-ratio: 1 / 1;">
+                                    <i class="fas fa-globe-americas text-white"></i>
+                                </div>
                                 <div>
                                     <small class="text-muted">
                                         @if($globalPercentDiff !== null) 
@@ -64,15 +69,15 @@
                     </div>
                 </div>
 
-                
+                <!-- Favourited Activities -->
                 @if($favouritedActivities->count() > 0)
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0">Your Favourites</h5>
+                <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+                    <h5 class="mb-0 text-uppercase">Recently Favourited</h5>
                     <a href="{{ route('activities.index', ['tab' => 'favourited']) }}" class="text-decoration-none text-dark">
                         <i class="fas fa-arrow-right fa-lg"></i>
                     </a>
                 </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         @foreach($favouritedActivities as $activity)
                             <div class="col-md-6 mb-4">
                                 <x-activity-card :activity="$activity" />
@@ -81,23 +86,24 @@
                     </div>
                 @endif
 
+                <!-- Recent Achievements -->
                 @if($unlocked->count())
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0">Recently Unlocked</h5>
+                    <h5 class="mb-0 text-uppercase">Unlocked Achievements</h4>
                     <a href="{{ route('achievements.index') }}" class="text-decoration-none text-dark">
                         <i class="fas fa-arrow-right fa-lg"></i>
                     </a>
                 </div>
                     <div id="unlockedCarousel" class="draggable-carousel mb-3">
                         @foreach($unlocked as $achievement)
-                            <div class="card border-success achievement-card">
-                                @if($achievement->image_url)
-                                    <img src="{{ asset('storage/' . $achievement->image_url) }}" class="card-img-top" alt="Achievement Image">
-                                @endif
+                            <div class="card border-0 shadow-sm achievement-card text-center">
+                                <img src="{{ $achievement->image_url ? asset('storage/' . $achievement->image_url) : asset('images/placeholder.png') }}"
+                                    class="card-img-top rounded-circle mx-auto d-block object-fit-cover"
+                                    alt="Achievement Image"
+                                    style="height:50px; width:50px">
                                 <div class="card-body">
                                     <h6 class="card-title fw-bold">{{ $achievement->name }}</h6>
                                     <p class="fs-7">{{ $achievement->description }}</p>
-                                    <span class="badge bg-success">Unlocked</span>
                                 </div>
                             </div>
                         @endforeach

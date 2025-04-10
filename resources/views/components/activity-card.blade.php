@@ -1,25 +1,34 @@
 <a href="{{ route('activities.show', $activity->id) }}" class="text-decoration-none text-dark">
     <div class="card border-0 h-100 shadow-sm">
-        @if ($activity->image_url)
-            <img src="{{ asset('storage/' . $activity->image_url) }}" class="card-img-top" alt="{{ $activity->title }}">
-        @endif
+        <img src="{{ $activity->image_url ? asset('storage/' . $activity->image_url) : asset('images/placeholder.png') }}"
+        class="card-img-top object-fit-cover"
+        alt="{{ $activity->title }}"
+        style="height:100px">
         <div class="card-body">
-            <h5 class="card-name fw-bold fs-6">{{ $activity->name }}</h5>
-            <span class="badge bg-secondary">Impact: {{ $activity->impact_points }}</span>
+            <h6 class="card-name h6">{{ $activity->name }}</h6>
+            <span class="badge bg-secondary">{{ $activity->impact_points }} Impact Points</span>
 
             @php
-                // Define difficulty color based on the difficulty level
-                $difficultyClass = 'bg-secondary'; // Default class
-                if ($activity->difficulty === 'easy') {
-                    $difficultyClass = 'bg-success'; // Green
-                } elseif ($activity->difficulty === 'medium') {
-                    $difficultyClass = 'bg-warning'; // Orange
-                } elseif ($activity->difficulty === 'hard') {
-                    $difficultyClass = 'bg-danger'; // Red
-                }
+                $difficultyClass = match($activity->difficulty) {
+                    'easy' => 'bg-success',
+                    'medium' => 'bg-warning',
+                    'hard' => 'bg-danger',
+                    default => 'bg-secondary',
+                };
+
+                $categoryClass = match($activity->category) {
+                    'food' => 'badge-food',
+                    'waste' => 'badge-waste',
+                    'energy' => 'badge-energy',
+                    'air' => 'badge-air',
+                    'land' => 'badge-land',
+                    'sea' => 'badge-sea',
+                    default => 'bg-secondary',
+                };
             @endphp
 
-            <span class="badge {{ $difficultyClass }}">Difficulty: {{ ucfirst($activity->difficulty) }}</span>
+            <span class="badge {{ $difficultyClass }}">{{ ucfirst($activity->difficulty) }}</span>
+            <span class="badge {{ $categoryClass }}">{{ ucfirst($activity->category) }}</span>
         </div>
     </div>
 </a>

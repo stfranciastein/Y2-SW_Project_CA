@@ -22,7 +22,7 @@
             <div class="announcement-scroll d-flex gap-2 mb-4" id="announcementScroll">
                 @foreach($appposts->where('category', 'announcement')->take(10) as $announcement)
                     <a href="{{ route('appposts.show', $announcement->id) }}" class="text-decoration-none text-center flex-shrink-0">
-                        <div class="rounded-circle border p-2" style="width: 60px; height: 60px; overflow: hidden;">
+                        <div class="rounded-circle border p-2" style="width: 100px; height: 100px; overflow: hidden;">
                             @if($announcement->image_url)
                                 <img src="{{ asset('storage/' . $announcement->image_url) }}" class="img-fluid rounded-circle" style="object-fit: cover; width: 100%; height: 100%;">
                             @else
