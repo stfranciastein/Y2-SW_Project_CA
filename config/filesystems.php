@@ -39,13 +39,17 @@ return [
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'driver' => 's3',
+            'key' => env('LARAVEL_CLOUD_ACCESS_KEY_ID'),
+            'secret' => env('LARAVEL_CLOUD_ACCESS_KEY_SECRET'),
+            'region' => env('LARAVEL_CLOUD_DEFAULT_REGION', 'auto'),
+            'bucket' => env('LARAVEL_CLOUD_BUCKET'),
+            'endpoint' => env('LARAVEL_CLOUD_ENDPOINT'),
+            'url' => env('LARAVEL_CLOUD_URL'), // You’ll define this below
             'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
+            'use_path_style_endpoint' => env('LARAVEL_CLOUD_USE_PATH_STYLE_ENDPOINT', false),
         ],
+
 
         's3' => [
             'driver' => 's3',
