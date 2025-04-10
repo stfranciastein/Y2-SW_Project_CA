@@ -57,8 +57,16 @@ Route::middleware('auth')->group(function () {
 
 // AppPost Routes
 Route::middleware(['auth'])->group(function () {
-    Route::resource('appposts', AppPostController::class);
+    // Admin-moderator routes for create
+    Route::get('/appposts/create', [AppPostController::class, 'create'])
+        ->middleware('adminOrModerator')
+        ->name('appposts.create');
+
+
+    // The rest of the AppPost routes
+    Route::resource('appposts', AppPostController::class)->except(['create']);
 });
+
 
 //Achievement Routes
 Route::middleware(['auth'])->group(function () {
