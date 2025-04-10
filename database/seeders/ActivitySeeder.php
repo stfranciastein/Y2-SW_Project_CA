@@ -13,7 +13,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Take Public Transport Instead of Driving',
                 'description' => 'Use the bus or train to reduce your carbon emissions from daily commuting.',
-                'difficulty' => 'Easy',
+                'difficulty' => 'easy',
                 'impact_points' => 20,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -27,7 +27,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Go Meat-Free for a Week',
                 'description' => 'Reduce your carbon footprint by avoiding meat for seven days.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 30,
                 'image_url' => null,
                 'reduction_food' => 50,  
@@ -41,7 +41,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Install LED Light Bulbs',
                 'description' => 'Swap old bulbs for energy-efficient LED lighting throughout your home.',
-                'difficulty' => 'Easy',
+                'difficulty' => 'easy',
                 'impact_points' => 15,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -55,7 +55,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Recycle All Household Waste This Week',
                 'description' => 'Make sure to recycle paper, plastic, and metal instead of sending them to landfill.',
-                'difficulty' => 'Easy',
+                'difficulty' => 'easy',
                 'impact_points' => 10,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -69,7 +69,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Avoid a Flight for Your Next Trip',
                 'description' => 'Choose a local vacation spot or take the train to avoid air travel emissions.',
-                'difficulty' => 'Hard',
+                'difficulty' => 'hard',
                 'impact_points' => 50,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -83,7 +83,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Switch to a Green Energy Supplier',
                 'description' => 'Reduce your carbon footprint by switching to a renewable energy supplier.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 40,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -97,7 +97,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Use a Clothesline Instead of a Dryer',
                 'description' => 'Save energy by air-drying your clothes instead of using a tumble dryer.',
-                'difficulty' => 'Easy',
+                'difficulty' => 'easy',
                 'impact_points' => 10,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -111,7 +111,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Switch to a Plant-Based Milk',
                 'description' => 'Reduce your environmental impact by switching to plant-based milk alternatives.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 20,
                 'image_url' => null,
                 'reduction_food' => 100,  
@@ -125,7 +125,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Plant Trees in Your Community',
                 'description' => 'Help absorb CO2 by planting trees in your local area.',
-                'difficulty' => 'Hard',
+                'difficulty' => 'hard',
                 'impact_points' => 60,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -139,7 +139,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Buy Locally Grown Produce',
                 'description' => 'Support local farms and reduce emissions from food transport.',
-                'difficulty' => 'Easy',
+                'difficulty' => 'easy',
                 'impact_points' => 25,
                 'image_url' => null,
                 'reduction_food' => 100,  
@@ -153,7 +153,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Compost Your Organic Waste',
                 'description' => 'Turn food scraps and organic waste into compost to reduce landfill emissions.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 30,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -167,7 +167,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Install a Smart Thermostat',
                 'description' => 'Control your home temperature more efficiently to save energy.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 40,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -181,7 +181,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Reduce Single-Use Plastic Usage',
                 'description' => 'Minimize your use of plastic products and packaging.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 20,
                 'image_url' => null,
                 'reduction_food' => 0,
@@ -195,7 +195,7 @@ class ActivitySeeder extends Seeder
             [
                 'name' => 'Reduce Plastic Use Near Water',
                 'description' => 'Avoid single-use plastics and properly dispose of waste to protect marine ecosystems.',
-                'difficulty' => 'Medium',
+                'difficulty' => 'medium',
                 'impact_points' => 40,
                 'image_url' => null,
                 'reduction_food' => 0,
