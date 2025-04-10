@@ -9,10 +9,9 @@
             <div id="profile-display">
                 <div class="pt-3 row d-flex align-items-center mb-lg-4">
                     <div class="col-6">
-                    <img src="{{ Storage::disk('public')->url($user->image_url) }}"
-     alt="Profile Picture"
-     class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto d-block">
-
+                        <img src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
+                            alt="Profile Picture"
+                            class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto d-block">
                     </div>
                     <div class="col-6 row">
                         <div class="col-lg-12 col-12 d-lg-flex gap-5">
