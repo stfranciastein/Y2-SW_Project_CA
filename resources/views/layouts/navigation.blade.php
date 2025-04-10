@@ -28,7 +28,7 @@
 
 
 <!-- Bottom Navbar (for smaller screens) -->
-<nav class="navbar navbar-light bg-white shadow-sm fixed-bottom d-md-none">
+<nav class="navbar navbar-light bg-white fixed-bottom d-md-none shadow-md" style="box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);">
     <div class="container">
         <ul class="w-100 d-flex justify-content-between list-unstyled px-3 my-0 pt-1">
             <li class="nav-item">

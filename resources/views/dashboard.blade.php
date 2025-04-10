@@ -13,7 +13,9 @@
                 <div class="container mt-0">
                     <h3 class="ps-1 fs-3 pt-3 text-uppercase">Emissions Breakdown</h3>
                     <p class="mb-5 fst-italic text-muted">*Your emissions are calculated in kgs of CO2/year</p>
-                    <canvas id="emissionsChart" width="200" height="200"></canvas>
+                    <div>
+                    <canvas id="emissionsChart" width="200px" height="200px"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -102,8 +104,8 @@
                                     alt="Achievement Image"
                                     style="height:50px; width:50px">
                                 <div class="card-body">
-                                    <h6 class="card-title fw-bold">{{ $achievement->name }}</h6>
-                                    <p class="fs-7">{{ $achievement->description }}</p>
+                                    <h6 class="card-title">{{ $achievement->name }}</h6>
+                                    <p>{{ $achievement->description }}</p>
                                 </div>
                             </div>
                         @endforeach
