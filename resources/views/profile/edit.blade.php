@@ -16,7 +16,7 @@
                     <div class="col-6 row">
                         <div class="col-lg-12 col-12 d-lg-flex gap-5">
                             <p class="mb-2"><strong>{{ auth()->user()->name }}</strong></p>
-                            <p class="mb-2 fst-italic">{{ auth()->user()->country }}</p>
+                            <p class="mb-2 fst-italic">{{ auth()->user()->image_url }}</p>
                             <p class="mb-2"><strong>Level:</strong> {{ auth()->user()->level }}</p>
                         </div>
                         <!-- This will onl display on large screens, while the one outside will only display on smaller ones. --> 
