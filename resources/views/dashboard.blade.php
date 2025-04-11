@@ -1,9 +1,26 @@
 @extends('layouts.app')
 @section('content')
+@push('styles')
+<style>
+    body {
+        background-image: url('{{ asset('images/assets/whiteground.png') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .dashboard-wrapper {
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+</style>
+@endpush
 <div class="container-sm">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card border-0 text-center">
+            <div class="card border-0 bg-white rounded-4 shadow-sm p-3 p-lg-5 text-center">
                 <div class="p-3 mb-0 border-0 fs-5 h3" id="greeting"></div>
                 <div class="mt-2 border-bottom border-1 border-black pb-2">
                     <p class="fs-6 text-muted fw-medium">You've saved {{ number_format($totalSaved) }} kg of CO₂ a year. Congratulations! That’s roughly the equivalent of planting {{ $treeEquivalent }} tree{{ $treeEquivalent !== 1 ? 's' : '' }} per year.</p>
@@ -22,54 +39,62 @@
             <!-- This contains all of the dashboard cards -->
             <div class="container mt-4">
 
-                <!-- Position Section -->
-                <div class="d-flex gap-3 mb-4">
-                    <!-- Your National Position -->
-                    <div class="card p-3 flex-fill border-0" style="background-image: url('{{ asset('images/placeholder.png') }}'); background-size: cover; background-position: center;">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-info" style="width: 50px; aspect-ratio: 1 / 1;">
-                                    <i class="fas fa-flag text-white"></i>
-                                </div>
-                                <div>
-                                    <small class="text-muted">
-                                        @if($percentDiff !== null)
-                                            <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }}">
-                                                {{ $percentDiff < 0 ? '-' : '+' }}{{ abs($percentDiff) }}% {{ $percentDiff < 0 ? 'below' : 'above' }}
-                                            </span>
-                                            your country's average
-                                        @else
-                                            No comparison data available
-                                        @endif
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Position Section -->
+            <div class="d-flex gap-3 mb-4 align-items-stretch">
 
-                    <!-- Your Global Position -->
-                    <div class="card p-3 flex-fill border-0" style="background-image: url('{{ asset('images/placeholder.png') }}'); background-size: cover; background-position: center;">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-info" style="width: 50px; aspect-ratio: 1 / 1;">
-                                    <i class="fas fa-globe-americas text-white"></i>
-                                </div>
-                                <div>
-                                    <small class="text-muted">
-                                        @if($globalPercentDiff !== null) 
-                                            <span class="{{ $globalPercentDiff < 0 ? 'text-success' : 'text-danger' }}">
-                                                {{ $globalPercentDiff < 0 ? '-' : '+' }}{{ abs($globalPercentDiff) }}% {{ $globalPercentDiff < 0 ? 'below' : 'above' }}
-                                            </span>
-                                            the global average
-                                        @else
-                                            No comparison data available
-                                        @endif
-                                    </small>
-                                </div>
+                <!-- Your National Position -->
+                <div class="card p-3 flex-fill border-0 text-white position-relative overflow-hidden h-100"
+                    style="background-image: url('{{ asset('images/assets/background.png') }}'); background-size: 160%; background-position: left center;">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.55); z-index: 1;"></div>
+                    <div class="d-flex align-items-center justify-content-between position-relative z-2 h-100">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="background-color: #0039B3; width: 50px; aspect-ratio: 1 / 1;">
+                                <i class="fas fa-flag text-white"></i>
+                            </div>
+                            <div>
+                                <small class="text-white fw-semibold">
+                                    @if($percentDiff !== null)
+                                        <span class="{{ $percentDiff < 0 ? 'text-success' : 'text-danger' }} fw-bold">
+                                            {{ $percentDiff < 0 ? '-' : '+' }}{{ abs($percentDiff) }}%
+                                        </span>
+                                        <span class="text-white"> of country's average</span>
+                                    @else
+                                        No comparison data available
+                                    @endif
+                                </small>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Your Global Position -->
+                <div class="card p-3 flex-fill border-0 text-white position-relative overflow-hidden h-100"
+                    style="background-image: url('{{ asset('images/assets/background.png') }}'); background-size: 160%; background-position: right center;">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.55); z-index: 1;"></div>
+                    <div class="d-flex align-items-center justify-content-between position-relative z-2 h-100">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="background-color: #0039B3; width: 50px; aspect-ratio: 1 / 1;">
+                                <i class="fas fa-globe-americas text-white"></i>
+                            </div>
+                            <div>
+                                <small class="text-white fw-semibold">
+                                    @if($globalPercentDiff !== null)
+                                        <span class="{{ $globalPercentDiff < 0 ? 'text-success' : 'text-danger' }} fw-bold">
+                                            {{ $globalPercentDiff < 0 ? '-' : '+' }}{{ abs($globalPercentDiff) }}%
+                                        </span>
+                                        <span class="text-white">of the global average</span>
+                                    @else
+                                        No comparison data available
+                                    @endif
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
                 <!-- Favourited Activities -->
                 @if($favouritedActivities->count() > 0)
@@ -100,7 +125,7 @@
                         @foreach($unlocked as $achievement)
                             <div class="card border-0 shadow-sm achievement-card text-center">
                                 <img src="{{ $achievement->image_url ? asset('storage/' . $achievement->image_url) : asset('images/placeholder.png') }}"
-                                    class="card-img-top rounded-circle mx-auto d-block object-fit-cover"
+                                    class="card-img-top rounded-circle mx-auto d-block object-fit-cover mt-3"
                                     alt="Achievement Image"
                                     style="height:50px; width:50px">
                                 <div class="card-body">
