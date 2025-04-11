@@ -23,8 +23,8 @@
 
 <!-- Bottom Navbar (Mobile) -->
 <nav class="navbar bg-white fixed-bottom border-top d-md-none shadow-sm">
-    <div class="container-fluid px-4">
-        <ul class="d-flex justify-content-between align-items-center w-100 list-unstyled my-2">
+    <div class="container-fluid px-4 fw-bold">
+        <ul class="d-flex gap-3 justify-content-between align-items-center w-100 list-unstyled my-2">
             <li class="text-center flex-fill">
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'text-primary' : 'text-muted' }}" href="{{ route('dashboard') }}">
                     <i class="fas fa-home fa-2x"></i>
