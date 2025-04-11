@@ -69,14 +69,18 @@
                         </div>
                     @endif
                 @endforeach
-                <div class="col-12 d-flex justify-content-center mb-4">
-                    <a href="{{ route('activities.create') }}" class="position-relative rounded shadow-sm w-100 text-decoration-none p-3 bg-black">
-                        <div class="d-flex flex-column justify-content-center align-items-center text-center">
-                            <h3 class="fw-bold text-light">Add New Activity</h3>
-                            <p class="text-light">Click here to create a new activity</p>
-                        </div>
-                    </a>
-                </div>
+                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'moderator')
+                    <div class="col-12 d-flex justify-content-center mb-4">
+                        <a href="{{ route('activities.create') }}" class="position-relative rounded shadow-sm w-100 text-decoration-none p-3 bg-black">
+                            <div class="d-flex flex-column justify-content-center align-items-center text-center">
+                                <i class="fas fa-plus fa-2x mb-2 text-white"></i>
+                                <h3 class="fw-bold text-light">Add New Activity</h3>
+                                <p class="text-light">Click here to create a new activity</p>
+                            </div>
+                        </a>
+                    </div>
+                @endif
+
 
             </div>
 

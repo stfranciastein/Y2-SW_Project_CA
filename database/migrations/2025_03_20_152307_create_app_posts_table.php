@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 255);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign Key to Users
-            $table->string('description', 255)->nullable();
+            $table->text('description')->nullable();
             $table->text('content'); // Content of the post
             $table->enum('category', ['news', 'event', 'announcement'])->default('news'); //Remember to store this as enum but retrieve it as a string.
             $table->text('image_url')->nullable();

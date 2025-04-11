@@ -75,7 +75,7 @@ class AppPostController extends Controller
         // Validate and update the apppost
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'content' => 'required|string',
             'category' => 'required|in:news,event,announcement',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
