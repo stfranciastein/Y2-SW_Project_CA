@@ -1,6 +1,7 @@
 <!-- Top Navbar (Desktop) -->
 <nav class="navbar navbar-expand-lg bg-white border-bottom py-3 px-4 d-none d-md-flex flex-column align-items-center shadow-sm">
-    <a class="navbar-brand text-center mb-2 fs-2 text-dark tilt-warp" href="{{ url('/') }}">
+    <a class="navbar-brand text-center mb-2 d-flex align-items-center gap-2 fs-2 text-dark fw-bold h1" href="{{ url('/') }}">
+        <img src="{{ asset('images/assets/logo_blue.png') }}" alt="Logo" style="height: 35px; width: 35px; object-fit: contain;">
         PLANIT
     </a>
 
