@@ -42,9 +42,10 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.navigation')
-
-        <main class="py-4">
+        @if (!Request::is('onboarding'))
+            @include('layouts.navigation')
+        @endif
+         <main class="py-4">
             @yield('content')
         </main>
     </div>
