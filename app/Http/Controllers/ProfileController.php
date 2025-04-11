@@ -18,7 +18,25 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return view('profile.edit', compact('user'));
+        $levelTitle = match(true) {
+            auth()->user()->level === 1 => 'Novice Savour',
+            auth()->user()->level <= 3 => 'Adept Advocate',
+            auth()->user()->level <= 5 => 'Skilled Guardian',
+            auth()->user()->level <= 10 => 'Expert Envoy',
+            default => 'Master of Change',
+        };
+
+        $titles = [
+            1 => 'Novice Savour',
+            2 => 'Adept Ally',
+            3 => 'Skilled Steward',
+            4 => 'Expert Envoy',
+            5 => 'Master Guardian',
+            6 => 'Legendary Luminary'
+        ];
+        $levelTitle = $titles[auth()->user()->level] ?? 'Eco Explorer';
+
+        return view('profile.edit', compact('user', 'levelTitle', 'titles'));
     }
 
     /**

@@ -1,177 +1,186 @@
 @extends('layouts.app')
-
 @section('content')
+<style>
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    body {
+        background-image: url('{{ asset('images/assets/whiteground.png') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .dashboard-wrapper {
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
 
             <!-- Display Profile Info -->
             <div id="profile-display">
-                <div class="pt-3 row d-flex align-items-center mb-lg-4">
-                    <div class="col-6">
-                    <img src="{{ $user->image_url ? asset($user->image_url) : asset('images/default-profile.png') }}"
-                        alt="Profile Picture"
-                        class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto d-block">
-                    </div>
-                    <div class="col-6 row">
-                        <div class="col-lg-12 col-12 d-lg-flex gap-5">
-                            <p class="mb-2"><strong>{{ auth()->user()->name }}</strong></p>
-                            <p class="mb-2 fst-italic">{{ auth()->user()->image_url }}</p>
-                            <p class="mb-2"><strong>Level:</strong> {{ auth()->user()->level }}</p>
+                <div class="pt-3 row mx-0 justify-content-center mb-lg-4 bg-white p-3 shadow-sm overflow-hidden rounded-4">
+                    <div class="col-12 text-center">
+                        <!-- Profile Pic with edit floater -->
+                        <div class="position-relative d-inline-block mx-auto" style="max-width: 100%;">
+                            <img src="{{ $user->image_url ? asset($user->image_url) : asset('images/default-profile.png') }}"
+                                alt="Profile Picture"
+                                class="rounded-circle border border-2 border-gray-300 img-fluid"
+                                style="max-width: 250px; height: auto; object-fit: cover;">
+
+                            <button onclick="toggleEdit(true)"
+                                class="btn btn-light btn-sm rounded-circle position-absolute bottom-0 end-0 translate-middle border-1 border-black"
+                                style="z-index: 2; width: 32px; height: 32px;">
+                                <i class="fas fa-pen fa-sm text-dark"></i>
+                            </button>
                         </div>
-                        <!-- This will onl display on large screens, while the one outside will only display on smaller ones. --> 
-                        <p class="mt-3 mb-3 col-12 d-none d-lg-block">
-                            {{ auth()->user()->biography }}
+                        <!-- Text -->
+                        <p class="mt-3 mb-1 text-center text-muted small">{{ $levelTitle }}</p>
+                        <p class="mt-0 h3 text-uppercase">{{ auth()->user()->name }}</p>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center mt-0 text-center">
+                            <p class="text-uppercase fw-semibold mb-0">{{ auth()->user()->country }}</p>
+                            <p class="text-uppercase fw-semibold mb-0">|</p>
+                            <p class="text-uppercase fw-semibold mb-0">Level {{ auth()->user()->level }}</p>
+                        </div>
+
+                        <p class="text-dark mt-2 px-2">{{ auth()->user()->biography }}</p>
+                    </div>
+                </div>
+
+                <div class="card mt-3 border-0 shadow-sm rounded-4 p-3">
+                    <div class="px-2">
+                        <p class="mt-2"><strong>Activities Completed:</strong> 
+                            {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
                         </p>
-                        <div class="row d-none d-lg-flex">
-                            <div class="col-6">
-                                <button class="btn btn-dark mb-2 w-100" onclick="toggleEdit(true)">Edit Profile</button>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" role="progressbar"
+                                style="
+                                    width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
+                                    background-image: linear-gradient(90deg,rgb(19, 228, 165),rgb(15, 141, 199));
+                                "
+                                aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
+                                aria-valuemin="0"
+                                aria-valuemax="5">
                             </div>
-                            <div class="col-6">
-                                <button class="btn btn-dark mb-2 w-100" onclick="window.location='{{ route('onboarding') }}'">Update Emissions</button>
-                            </div>
-                            <p class="mt-2"><strong>Activities Completed:</strong> 
-                                {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
-                            </p>
-                            <div class="progress mb-3" style="height: 20px; padding: 0; margin: 0; border-radius: 0;">
-                                <div class="progress-bar" role="progressbar"
-                                    style="
-                                        width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
-                                        background-image: linear-gradient(90deg, rgb(19, 228, 165), rgb(15, 141, 199));
-                                        border-radius: 0;
-                                        margin: 0;"
-                                    aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
-                                    aria-valuemin="0"
-                                    aria-valuemax="5">
+                        </div>
+                    </div>
+
+                    <!-- Impact Points -->
+                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-success d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-leaf fs-3 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-bold text-uppercase">Impact Points</p>
+                                    <small class="text-muted">Total earned from activities</small>
                                 </div>
                             </div>
+                            <p class="h4 fw-medium mb-0">
+                                {{ auth()->user()->completedActivities->sum('impact_points') }}
+                            </p>
                         </div>
                     </div>
-                    <p class="mt-3 mb-3 col-12 d-block d-lg-none">
-                        {{ auth()->user()->biography }}
-                    </p>
-                </div>
 
-
-                <!-- Profile Buttons -->
-                <div class="row d-lg-none">
-                    <div class="col-6">
-                        <button class="btn btn-dark mb-2 w-100" onclick="toggleEdit(true)">Edit Profile</button>
-                    </div>
-                    <div class="col-6">
-                        <button class="btn btn-dark mb-2 w-100" onclick="window.location='{{ route('onboarding') }}'">Update Emissions</button>
-                    </div>
-                </div>
-
-                <div class="d-lg-none">
-                <!-- Progress Bar for Completed Activities -->
-                <p class="mt-2"><strong>Activities Completed:</strong> 
-                    {{ auth()->user()->completedActivities->count() }} / {{ (auth()->user()->level * 5) }}
-                </p>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar"
-                            style="
-                                width: {{ (auth()->user()->completedActivities->count() - (($user->level - 1) * 5)) / 5 * 100 }}%;
-                                background-image: linear-gradient(90deg,rgb(19, 228, 165),rgb(15, 141, 199));
-                            "
-                            aria-valuenow="{{ auth()->user()->completedActivities->count() }}"
-                            aria-valuemin="0"
-                            aria-valuemax="5">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card p-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-leaf fa-2x me-3 text-success"></i>
-                            <div>
-                                <p class="mb-0 fw-bold">Impact Points</p>
-                                <small class="text-muted">Total earned from activities</small>
+                    <!-- Achievements -->
+                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-warning d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-trophy fs-2 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-bold text-uppercase">Achievements</p>
+                                    <small class="text-muted">Total number earned</small>
+                                </div>
                             </div>
+                            <p class="h4 fw-medium mb-0">
+                                {{ auth()->user()->achievements->count() }}
+                            </p>
                         </div>
-                        <h4 class="fw-bold mb-0">
-                            {{ auth()->user()->completedActivities->sum('impact_points') }}
-                        </h4>
                     </div>
-                </div>
 
-                <div class="card p-3 mt-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-trophy fa-2x me-3 text-warning"></i>
-                            <div>
-                                <p class="mb-0 fw-bold">Achievements</p>
-                                <small class="text-muted">Total number earned</small>
+                    <!-- Current Emissions -->
+                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-danger d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-chart-line fs-2 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-bold text-uppercase">Current Emissions</p>
+                                    <small class="text-muted">
+                                        Original: {{
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_food +
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_waste +
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_energy +
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_land +
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_air +
+                                            optional(auth()->user()->userEmissions()->oldest()->first())->baseline_sea
+                                        }} kg CO₂/year
+                                    </small>
+                                </div>
                             </div>
-                        </div>
-                        <h4 class="fw-bold mb-0">
-                            {{ auth()->user()->achievements->count() }}
-                        </h4>
+                            <p class="h4 fw-medium mb-0">
+                                {{
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_food -
+                                        auth()->user()->activityReductions->sum('reduction_food')
+                                    ) +
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_waste -
+                                        auth()->user()->activityReductions->sum('reduction_waste')
+                                    ) +
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_energy -
+                                        auth()->user()->activityReductions->sum('reduction_energy')
+                                    ) +
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_land -
+                                        auth()->user()->activityReductions->sum('reduction_land')
+                                    ) +
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_air -
+                                        auth()->user()->activityReductions->sum('reduction_air')
+                                    ) +
+                                    (
+                                        optional(auth()->user()->userEmissions()->latest()->first())->baseline_sea -
+                                        auth()->user()->activityReductions->sum('reduction_sea')
+                                    )
+                                }} kg
+                            </p>
+                        </div>                    
                     </div>
-                </div>
 
-                <div class="card p-3 mt-3">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-chart-line fa-2x me-3 text-danger"></i>
-                            <div>
-                                <p class="mb-0 fw-bold">Current Emissions</p>
-                                <small class="text-muted">
-                                    Original: {{
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_food +
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_waste +
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_energy +
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_land +
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_air +
-                                        optional(auth()->user()->userEmissions()->oldest()->first())->baseline_sea
-                                    }} kg CO₂/year
-                                </small>
-                            </div>
-                        </div>
-                        <h4 class="fw-bold mb-0">
-                            {{
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_food -
-                                    auth()->user()->activityReductions->sum('reduction_food')
-                                ) +
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_waste -
-                                    auth()->user()->activityReductions->sum('reduction_waste')
-                                ) +
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_energy -
-                                    auth()->user()->activityReductions->sum('reduction_energy')
-                                ) +
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_land -
-                                    auth()->user()->activityReductions->sum('reduction_land')
-                                ) +
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_air -
-                                    auth()->user()->activityReductions->sum('reduction_air')
-                                ) +
-                                (
-                                    optional(auth()->user()->userEmissions()->latest()->first())->baseline_sea -
-                                    auth()->user()->activityReductions->sum('reduction_sea')
-                                )
-                            }} kg
-                        </h4>
-                    </div>                    
-                </div>
 
-                <div class="row">
                     <div class="p-3 col-12 d-flex justify-content-center">
-                    <canvas id="emissionsPieChart"></canvas>
+                        <canvas id="emissionsPieChart"></canvas>
                     </div>
+
+                    <div class="d-flex justify-content-center mt-1 mb-3">
+                        <button class="btn btn-dark rounded-4 px-4" onclick="window.location='{{ route('onboarding') }}'">
+                            Update Estimations
+                        </button>
+                    </div>
+
+                </div>
+                <div class="row">
                     <div class="text-center m-3">
                         <p class="text-muted small m-0">Built on Laravel {{ Illuminate\Foundation\Application::VERSION }}</p>
                         <p class="text-muted small">Created by Joshua Santiago-Francia</p>
                     </div>
                 </div>
+            </div>
 
-
-            </div> <!-- This is the div that closes the profile section -->
 
             <!-- EVERYTHING AFTER THIS SHOULD JUST BE THE EDIT FORMS -->
             <!-- Editable Profile Form -->
