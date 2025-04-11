@@ -16,16 +16,27 @@
         <div class="card-body">
             <div class="justify-content-center">
                 <div class="text-center">
+                    <p class="text-capitalize fs-5">{{ $apppost->category }}</p>
                     <h2 class="card-title pb-1 fs-1">{{ $apppost->title }}</h2>
                     @if ($apppost->description)
                         <p class="lead fst-italic">{{ $apppost->description }}</p>
                     @endif
-                    <div class="d-flex justify-content-center gap-2 pb-2 border-bottom">
-                        <p class="text-muted">{{ ucfirst($apppost->category) }}</p>
-                        <p class="text-muted pb-1">&middot;</p>
-                        <p class="text-muted pb-1">By {{ $apppost->user->name }}</p>
-                        <p class="text-muted pb-1">&middot;</p>
-                        <p class="text-muted pb-1">{{ $apppost->created_at->format('F j, Y') }}</p>
+                    <div class="pb-2 border-bottom">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            <img src="{{ asset($apppost->user->image_url) }}"
+                                alt="{{ $apppost->user->name }}"
+                                class="rounded-circle"
+                                style="width: 25px; height: 25px; object-fit: cover;">
+                            <span class="text-black text-uppercase fw-bold">{{ $apppost->user->name }}</span>
+                            <span class="text-black">&middot;</span>
+                            <span class="text-black text-uppercase fw-bold">{{ $apppost->created_at->format('F j, Y') }}</span>
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
+                            <i class="fab fa-facebook text-dark fs-3"></i>
+                            <i class="fab fa-linkedin text-dark fs-3"></i>
+                            <i class="fab fa-instagram text-dark fs-3"></i>
+                        </div>
                     </div>
                 </div>
                     <!-- Button to edit and delete will only show if you're an admin -->

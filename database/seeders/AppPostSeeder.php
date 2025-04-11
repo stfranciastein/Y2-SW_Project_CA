@@ -56,11 +56,11 @@ class AppPostSeeder extends Seeder
                 'user_id' => $user->id
             ],
             [
-                'title' => 'Joshua Santiago-Francia Finishes Assignment',
-                'description' => 'Do you think you have what it takes to grind Laravel like Josh? Cause he regained all of his motivation in the last 24 hours.',
+                'title' => 'Local Try-Hard Loves Sleep Deprivation',
+                'description' => 'After far too long of a time looking through JavaScript and Bootstrap documentation, the local tryhard, Joshua Santiago-Francia, mananaged to produce an app.',
                 'content' => 'After weeks of procrastination and a slump in motivation, Joshua Santiago-Francia powered through and completed his Laravel assignment in a single, caffeine-fueled burst of productivity. Friends and classmates watched in awe as Josh, once buried in tabs and distractions, narrowed his focus and reclaimed his drive. In just 24 hours, he transformed from a wandering coder to a deadline-hitting machine. Let this be a reminder to us all: greatness is only ever one deep focus session away.',
                 'category' => 'event',
-                'image_url' => null,
+                'image_url' => 'https://assets.workingnotworking.com/8m8nh7b4f8rkw8g89u1vy6multlm',
                 'user_id' => $user->id
             ],
             // Announcements
