@@ -103,7 +103,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'Monitor your footprint in real-time with new features.',
                 'content' => 'The latest Planit app version introduces a live carbon tracker, daily goals, and syncing with your transport and food apps.',
                 'category' => 'announcement',
-                'image_url' => null,
+                'image_url' => 'images/placeholder_announcement.jpg',
                 'user_id' => $user->id
             ],
             [
@@ -111,7 +111,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'Planit now partners with over 200 educational institutions.',
                 'content' => 'We’re proud to announce new partnerships with universities and secondary schools to bring climate education to classrooms.',
                 'category' => 'announcement',
-                'image_url' => null,
+                'image_url' => 'images/placeholder_announcement.jpg',
                 'user_id' => $user->id
             ],
             [
@@ -119,7 +119,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'Offset your emissions directly through your dashboard.',
                 'content' => 'You can now fund certified reforestation and renewable energy projects directly from your Planit profile.',
                 'category' => 'announcement',
-                'image_url' => null,
+                'image_url' => 'images/placeholder_announcement.jpg',
                 'user_id' => $user->id
             ],
             [
@@ -127,7 +127,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'We’re now an official signatory to the UN Race to Zero.',
                 'content' => 'As part of our commitment to net-zero operations, Planit has joined a global pact of companies pushing for ambitious climate goals.',
                 'category' => 'announcement',
-                'image_url' => null,
+                'image_url' => 'images/placeholder_announcement.jpg',
                 'user_id' => $user->id
             ],
             [
@@ -135,7 +135,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'Welcome our community leaders across 5 new regions.',
                 'content' => 'To support local action, we’ve appointed moderators in Ireland, Germany, Kenya, Chile, and Vietnam. They’ll help highlight stories and organize events.',
                 'category' => 'announcement',
-                'image_url' => null,
+                'image_url' => 'images/placeholder_announcement.jpg',
                 'user_id' => $user->id
             ],
             [
