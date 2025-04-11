@@ -84,16 +84,16 @@ class DatabaseSeeder extends Seeder
         
 
         // Uncomment if you want 10 random users
-        User::factory(100)->create()->each(function ($user) {
-            $user->userEmissions()->create([
-                'baseline_food' => rand(300, 1200),
-                'baseline_waste' => rand(100, 500),
-                'baseline_energy' => rand(400, 1000),
-                'baseline_land' => rand(200, 600),
-                'baseline_air' => rand(100, 1000),
-                'baseline_sea' => rand(100, 500),
-            ]);
-        });
+        // User::factory(100)->create()->each(function ($user) {
+        //     $user->userEmissions()->create([
+        //         'baseline_food' => rand(300, 1200),
+        //         'baseline_waste' => rand(100, 500),
+        //         'baseline_energy' => rand(400, 1000),
+        //         'baseline_land' => rand(200, 600),
+        //         'baseline_air' => rand(100, 1000),
+        //         'baseline_sea' => rand(100, 500),
+        //     ]);
+        // });
 
         $this->call(ActivitySeeder::class);
         $this->call(AppPostSeeder::class);
