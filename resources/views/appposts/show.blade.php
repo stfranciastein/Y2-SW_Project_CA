@@ -28,22 +28,22 @@
                 </div>
                     <!-- Button to edit and delete will only show if you're an admin -->
                     @if(auth()->check() && in_array(auth()->user()->role, ['admin', 'moderator']))
-                    <div class="mt-3">
-                        <h3>Moderation Actions</h3>
-                        <a href="{{ route('appposts.edit', $apppost->id) }}" class="btn btn-warning mb-3">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <!-- Deletes this post -->
-                        <form action="{{ route('appposts.destroy', $apppost->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger mb-3" onclick="return confirm('Are you sure you want to delete this post?')">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </button>
-                        </form>
-                    </div>
+                        <div class="d-flex gap-2 justify-content-center my-3">
+                            <a href="{{ route('appposts.edit', $apppost->id) }}" class="btn btn-warning rounded-pill px-4">
+                                <i class="fas fa-pen me-2"></i> Edit
+                            </a>
+
+                            <form action="{{ route('appposts.destroy', $apppost->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn rounded-pill px-4 text-dark" style="border: none;"
+                                    onclick="return confirm('Are you sure you want to delete this post?')">
+                                    <i class="fas fa-trash me-2"></i> Delete
+                                </button>
+                            </form>
+                        </div>
                     @endif
-            </div>
+
             
             <div class="mt-4 pt-2">
                 <p class="first-letter-large">

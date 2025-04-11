@@ -28,13 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Activity Routes
-Route::middleware('auth')->group(function () {
-    // Single route for the activities index page with 3 tabs
-    Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
-    Route::get('/activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
-});
+// Activity CRUD Routes
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['adminOrModerator'])->group(function () {
+        Route::get('/activities/create', [ActivityController::class, 'create'])->name('activities.create');
+        Route::get('/activities/{activity}/edit', [ActivityController::class, 'edit'])->name('activities.edit');
+        Route::put('/activities/{activity}', [ActivityController::class, 'update'])->name('activities.update');
+        Route::delete('/activities/{activity}', [ActivityController::class, 'destroy'])->name('activities.destroy');
+    });
 
+    Route::resource('activities', ActivityController::class)->only(['index', 'show', 'store']);
+});
 
 // Favourited Activity Routes
 Route::middleware('auth')->group(function () {

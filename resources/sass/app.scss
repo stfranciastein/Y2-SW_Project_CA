@@ -22,6 +22,19 @@ h1, h2, h3, h4, h5, h6 {
     animation-fill-mode: forwards;
 }
 
+.nav-tabs .nav-link {
+    color: #6c757d; // muted gray
+    border-color: #dee2e6;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.nav-tabs .nav-link.active {
+    color: #000 !important;
+    border-color: #000 !important;
+    background-color: transparent !important;
+}
+
 /* For the carousel on DASHBOARD */
 .draggable-carousel {
     display: flex;
