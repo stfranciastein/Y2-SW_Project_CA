@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'wizardofwaterdeep@gmail.com',
             'password' => Hash::make('123456789'),
             'country' => 'Ireland',
-            'biography' => 'A process known as ceremorphosis?! It is to be avoided.',
+            'biography' => 'Living it up. Can have it all. Can pull more women than any two men or train can haul. But my baby she does something way more impressive than the Georgia crawl.',
             'image_url' => 'images/profile_pictures/1_Gale_Dekarios_29053.png',
             'level' => 1,
             'role' => 'admin',
