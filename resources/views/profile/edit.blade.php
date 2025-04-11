@@ -92,25 +92,28 @@
                     </div>
 
                     <!-- Achievements -->
-                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                            <div class="d-flex align-items-center">
-                                <div class="rounded-circle bg-warning d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
-                                    <i class="fas fa-trophy fs-2 text-white"></i>
+                    <a href="{{ route('achievements.index') }}" class="text-decoration-none text-dark">
+                        <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1 position-relative">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle bg-warning d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-trophy fs-2 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 fw-bold text-uppercase">Achievements</p>
+                                        <small class="text-muted">Total number earned</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p class="mb-0 fw-bold text-uppercase">Achievements</p>
-                                    <small class="text-muted">Total number earned</small>
-                                </div>
+                                <p class="h4 fw-medium mb-0">
+                                    {{ auth()->user()->achievements->count() }}
+                                </p>
                             </div>
-                            <p class="h4 fw-medium mb-0">
-                                {{ auth()->user()->achievements->count() }}
-                            </p>
+                            <span class="stretched-link"></span>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Current Emissions -->
-                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1">
+                    <div class="card rounded-0 border-0 border-bottom py-4 px-2 mb-1" data-bs-toggle="modal" data-bs-target="#emissionsModal" style="cursor: pointer;">
                         <div class="d-flex align-items-center justify-content-between flex-wrap">
                             <div class="d-flex align-items-center">
                                 <div class="rounded-circle bg-danger d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
@@ -160,6 +163,21 @@
                             </p>
                         </div>                    
                     </div>
+                    <!-- Emissions Over Time Modal -->
+                    <div class="modal fade" id="emissionsModal" tabindex="-1" aria-labelledby="emissionsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content rounded-4 overflow-hidden">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title" id="emissionsModalLabel">Your Emissions Over Time</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <canvas id="emissionsLineChart" style="height: 300px;"></canvas>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                     <div class="p-3 col-12 d-flex justify-content-center">
@@ -216,6 +234,7 @@
         document.getElementById('profile-form').style.display = showForm ? 'block' : 'none';
     }
 </script>
+<!-- Pie Chart -->
 <script>
     const pieCtx = document.getElementById('emissionsPieChart').getContext('2d');
 
@@ -252,5 +271,62 @@
         }
     });
 </script>
+<!-- Line Chart -->
+<script>
+    const lineCtx = document.getElementById('emissionsLineChart').getContext('2d');
+
+    const emissionsData = @json(auth()->user()->userEmissions->map(function($record) {
+        return [
+            $record->created_at->format('M j'),
+            $record->baseline_food +
+            $record->baseline_waste +
+            $record->baseline_energy +
+            $record->baseline_land +
+            $record->baseline_air +
+            $record->baseline_sea
+        ];
+    }));
+
+    const labels = emissionsData.map(e => e[0]);
+    const values = emissionsData.map(e => e[1]);
+
+    new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Emissions (kg CO₂/year)',
+                data: values,
+                borderColor: '#ff6384',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'kg CO₂/year'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
 
 @endsection
