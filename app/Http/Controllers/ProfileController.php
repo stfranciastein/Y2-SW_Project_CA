@@ -27,37 +27,42 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
-
+    
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-
+    
         if ($request->filled('cropped_image')) {
             $base64Image = $request->input('cropped_image');
             $image = str_replace('data:image/png;base64,', '', $base64Image);
             $image = str_replace(' ', '+', $image);
-
-            //Gives image a human-readable name
+    
+            // Generate image name
             $randomInt = random_int(10000, 99999);
             $sanitizedName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->user()->name);
             $imageName = $request->user()->id . '_' . $sanitizedName . '_' . $randomInt . '.png';
-            
-            $imagePath = 'profile_pictures/' . $imageName;
-        
-            // Delete previous image if it exists and is not the default
+    
+            $imagePath = 'images/profile_pictures/' . $imageName;
+            $fullImagePath = public_path($imagePath);
+    
+            // Delete previous image if not default
             if ($request->user()->image_url && $request->user()->image_url !== 'images/default-profile.png') {
-                \Storage::disk('public')->delete($request->user()->image_url);
+                $existingPath = public_path($request->user()->image_url);
+                if (file_exists($existingPath)) {
+                    unlink($existingPath);
+                }
             }
-        
-            \Storage::disk('public')->put($imagePath, base64_decode($image));
+    
+            // Save the new image
+            file_put_contents($fullImagePath, base64_decode($image));
             $request->user()->image_url = $imagePath;
         }
-        
-              
+    
         $request->user()->save();
-
+    
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+    
 
     /**
      * Delete the user's account.

@@ -9,9 +9,10 @@
 
     <!-- Actual Card --> 
     <div class="card border-0">
-        @if ($apppost->image_url)
-            <img src="{{ asset('storage/' . $apppost->image_url) }}" class="card-img-top object-fit-cover" alt="{{ $apppost->title }}" style="height: 400px">
-        @endif
+        <img src="{{ $apppost->image_url ? asset($apppost->image_url) : asset('images/placeholder.png') }}"
+        class="card-img-top object-fit-cover"
+        alt="{{ $apppost->title }}"
+        style="height: 400px">
         <div class="card-body">
             <div class="text-center justify-content-center">
                 <h2 class="card-title pb-1 fs-1">{{ $apppost->title }}</h2>

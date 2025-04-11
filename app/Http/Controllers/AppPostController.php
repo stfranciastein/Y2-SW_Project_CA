@@ -37,10 +37,13 @@ class AppPostController extends Controller
 
         // Handle the file upload for image
         if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('posts', 'public');
+            $filename = time() . '_' . $request->file('image_url')->getClientOriginalName();
+            $request->file('image_url')->move(public_path('images/appposts'), $filename);
+            $imagePath = 'images/appposts/' . $filename;
         } else {
             $imagePath = null;
         }
+        
 
         AppPost::create([
             'title' => $request->title,
@@ -80,10 +83,13 @@ class AppPostController extends Controller
 
         // Handle the file upload for image
         if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('posts', 'public');
+            $filename = time() . '_' . $request->file('image_url')->getClientOriginalName();
+            $request->file('image_url')->move(public_path('images/appposts'), $filename);
+            $imagePath = 'images/appposts/' . $filename;
         } else {
-            $imagePath = $apppost->image_url; // Keep the original image if no new image is uploaded
-        }
+            $imagePath = $apppost->image_url;
+        }        
+        
 
         $apppost->update([
             'title' => $request->title,

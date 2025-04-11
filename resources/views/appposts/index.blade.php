@@ -24,17 +24,22 @@
                     <a href="{{ route('appposts.show', $announcement->id) }}" class="text-decoration-none text-center flex-shrink-0">
                         <div class="rounded-circle border p-2" style="width: 100px; height: 100px; overflow: hidden;">
                             @if($announcement->image_url)
-                                <img src="{{ asset('storage/' . $announcement->image_url) }}" class="img-fluid rounded-circle" style="object-fit: cover; width: 100%; height: 100%;">
+                                <img src="{{ asset($announcement->image_url) }}"
+                                    class="img-fluid rounded-circle"
+                                    style="object-fit: cover; width: 100%; height: 100%;">
                             @else
                                 <div class="d-flex align-items-center justify-content-center h-100 w-100 bg-light rounded-circle">
                                     <small>{{ \Illuminate\Support\Str::limit($announcement->title, 2, '') }}</small>
                                 </div>
                             @endif
                         </div>
-                        <small class="d-block mt-1 text-muted" style="font-size: 0.75rem;">{{ \Illuminate\Support\Str::limit($announcement->title, 10) }}</small>
+                        <small class="d-block mt-1 text-muted" style="font-size: 0.75rem;">
+                            {{ \Illuminate\Support\Str::limit($announcement->title, 10) }}
+                        </small>
                     </a>
                 @endforeach
             </div>
+
 
 
             <!-- Latest News Post -->
@@ -48,11 +53,11 @@
                 <div class="card mb-3 border-0 text-white position-relative overflow-hidden" style="height: 200px;">
                     <!-- Background Image -->
                     <div class="position-absolute top-0 start-0 w-100 h-100" style="
-                        background-image: url('{{ asset('storage/' . $latestEvent->image_url) }}');
+                        background-image: url('{{ $latestEvent->image_url ? asset($latestEvent->image_url) : asset('images/assets/placeholder.png') }}');
                         background-size: cover;
                         background-position: center;
-                        z-index: 1;
-                    "></div>
+                        z-index: 1;">
+                    </div>
 
                     <!-- Black Overlay -->
                     <div class="position-absolute top-0 start-0 w-100 h-100" style="

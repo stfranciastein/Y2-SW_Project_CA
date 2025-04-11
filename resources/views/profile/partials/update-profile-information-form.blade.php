@@ -18,9 +18,10 @@
                 <div class="col-md-5 row mb-3">
                     <!-- Profile Picture Display -->
                     <img id="profile_display"
-                    src="{{ $user->image_url ? asset('storage/' . $user->image_url) : asset('images/default-profile.png') }}"
-                    alt="Profile Picture"
-                    class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto mb-2">
+                        src="{{ $user->image_url ? asset($user->image_url) : asset('images/default-profile.png') }}"
+                        alt="Profile Picture"
+                        class="rounded-circle img-fluid object-fit-cover border-gray-300 mx-auto mb-2">
+
 
 
                     <!-- Upload Button -->
