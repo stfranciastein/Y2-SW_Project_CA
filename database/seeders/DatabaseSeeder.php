@@ -84,7 +84,7 @@ class DatabaseSeeder extends Seeder
         
 
         // Uncomment if you want 10 random users
-        User::factory(1000)->create()->each(function ($user) {
+        User::factory(100)->create()->each(function ($user) {
             $user->userEmissions()->create([
                 'baseline_food' => rand(300, 1200),
                 'baseline_waste' => rand(100, 500),
