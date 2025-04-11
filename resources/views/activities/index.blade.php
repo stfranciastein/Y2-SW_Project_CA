@@ -30,16 +30,54 @@
                             ? $activities->whereNotIn('id', auth()->user()->completedActivities->pluck('id'))->count()
                             : $activities->where('category', $key)->whereNotIn('id', auth()->user()->completedActivities->pluck('id'))->count();
                     @endphp
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100 shadow-sm clickable" onclick="showCategory('{{ $key }}')">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ $label }}</h5>
-                                <p class="text-muted mb-0">{{ $count }} activities</p>
+                    @if($key === 'all')
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="position-relative rounded shadow-sm clickable w-100"
+                            onclick="showCategory('{{ $key }}')"
+                            style="
+                                aspect-ratio: 1 / 1;
+                                background-image: url('{{ asset('images/location.png') }}');
+                                background-size: cover;
+                                background-position: center;
+                                overflow: hidden;">
+                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.6); z-index: 1;"></div>
+                            <div class="position-relative z-2 d-flex flex-column justify-content-center align-items-center h-100 text-white px-2 text-center">
+                                <h3 class="fw-bold">All Activities</h3>
+                                <p class="mb-1 fst-italic">"You're never too small to make a difference."</p>
+                                <p class="mb-0">{{ $count }} activities</p>
                             </div>
                         </div>
                     </div>
+                    @else
+                    <!-- The background for this will use a url + key cause I didn't want to make another stupid table -->
+                    <div class="col-6 col-md-4 col-lg-3 mb-4">
+                        <div class="position-relative rounded shadow-sm clickable"
+                            onclick="showCategory('{{ $key }}')"
+                            style="
+                                width: 100%;
+                                aspect-ratio: 1 / 1;
+                                background-image: url('{{ asset('images/assets/activitybackgrounds/' . $key . '.jpg') }}');
+                                background-size: cover;
+                                background-position: center;
+                                overflow: hidden;">
+                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.55); z-index: 1;"></div>
+                            <div class="position-relative z-2 d-flex flex-column justify-content-center align-items-center h-100 text-white px-2 text-center">
+                                <i class="fas {{ match($key) {
+                                    'energy' => 'fa-bolt',
+                                    'food' => 'fa-utensils',
+                                    'waste' => 'fa-trash',
+                                    'land' => 'fa-tree',
+                                    'air' => 'fa-wind',
+                                    'sea' => 'fa-water',
+                                    default => 'fa-leaf',
+                                } }} fa-2x mb-2"></i>
+                                <h6 class="fw-bold mb-1 text-white">{{ $label }}</h6>
+                                <small>{{ $count }} activities</small>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 @endforeach
-
             </div>
 
             @foreach($categories as $key => $label)
