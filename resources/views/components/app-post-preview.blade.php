@@ -6,7 +6,8 @@
              style="height: 250px;">
         <div class="card-body">
             <h5 class="card-title">{{ $apppost->title }}</h5>
-            <p class="card-text text-muted">By {{ $apppost->user->name }}</p>
+            <p class="card-text text-muted mb-1">By {{ $apppost->user->name }}</p>
+            <p class="card-text text-muted small fst-italic">{{ $apppost->created_at->format('F j, Y') }}</p>
         </div>
     </div>
 </a>

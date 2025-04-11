@@ -21,7 +21,7 @@ class AppPostSeeder extends Seeder
                 'description' => 'One of the most endangered animals in the world, freshwater mussels are threatened by pollution, climate change, habitat loss, and invasive species. But in the epicenter of their diversity — the Southeastern U.S. — the root cause of a catastrophic die-off remains a mystery.',
                 'content' => 'Throughout his professional life, U.S. Forest Service researcher Wendell Haag has studied freshwater mussels in their hotspot of biological diversity, which extends across a vast swath of the southeastern United States. His more than 30-year career has been overshadowed by a single question: Why are the bivalves in this region disappearing? Freshwater mussels are one of the most endangered groups of animals in the world. North America is currently home to more than 300 native species — many with colorful colloquial names like fuzzy pigtoe, purple warty back, fluted elephant ear, orangefoot pimpleback, pink heelsplitter, and monkeyface — of which 70 percent are either endangered, threatened, or of special concern. Some southeastern watersheds have seen losses of a third to half of their mussel species in the last half century; another 21 southeastern species are believed to be extinct, and dozens more persist only in fragments of their former range. Threats to mussels come from many quarters — polluted runoff, the damming of waterways, warming water temperatures, pathogenic viruses, and invasive competitors — but an explanation for the extent of the U.S.’s most widespread die-off, which began decades ago in the Southeast, has remained out of reach.', 
                 'category' => 'news',
-                'image_url' => 'https://yale-threesixty.transforms.svdcdn.com/production/Mussel-Mortality_USFWS-HEADER.jpeg?w=1000&h=562&auto=compress%2Cformat&fit=crop&dm=1743786236&s=18f1495dc30e036e585d0c9ab7d893e2',
+                'image_url' => 'https://images.pexels.com/photos/8352388/pexels-photo-8352388.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                 'user_id' => $user->id
             ],
             [
@@ -56,41 +56,9 @@ class AppPostSeeder extends Seeder
                 'user_id' => $user->id
             ],
             [
-                'title' => 'Green Future Expo 2025',
-                'description' => 'Join innovators and climate advocates at Europe’s largest sustainability expo.',
-                'content' => 'This year’s Green Future Expo will feature over 300 speakers, workshops, and startups focused on climate tech and circular economy solutions.',
-                'category' => 'event',
-                'image_url' => null,
-                'user_id' => $user->id
-            ],
-            [
-                'title' => 'National Tree Planting Day',
-                'description' => 'Volunteers across the country will plant 1 million trees.',
-                'content' => 'On April 22, citizens are encouraged to join regional efforts to reforest degraded land and urban spaces.',
-                'category' => 'event',
-                'image_url' => null,
-                'user_id' => $user->id
-            ],
-            [
-                'title' => 'Coastal Cleanup Weekend',
-                'description' => 'Organized shoreline cleanups happening nationwide.',
-                'content' => 'From May 18–19, dozens of environmental groups will lead local efforts to collect plastic waste along beaches and riverbanks.',
-                'category' => 'event',
-                'image_url' => null,
-                'user_id' => $user->id
-            ],
-            [
-                'title' => 'Low-Carbon Commuter Challenge',
-                'description' => 'Cycle, walk, or take transit for a week and win prizes.',
-                'content' => 'Participants who track their low-carbon commutes from June 3–9 can earn entries into a raffle for eco-friendly gear and gift cards.',
-                'category' => 'event',
-                'image_url' => null,
-                'user_id' => $user->id
-            ],
-            [
-                'title' => 'Youth Climate Leadership Summit',
-                'description' => 'A three-day event for young environmental leaders.',
-                'content' => 'Hosted in Amsterdam, this summit connects student activists and youth organizers for training, collaboration, and action planning.',
+                'title' => 'Joshua Santiago-Francia Finishes Assignment',
+                'description' => 'Do you think you have what it takes to grind Laravel like Josh? Cause he regained all of his motivation in the last 24 hours.',
+                'content' => 'After weeks of procrastination and a slump in motivation, Joshua Santiago-Francia powered through and completed his Laravel assignment in a single, caffeine-fueled burst of productivity. Friends and classmates watched in awe as Josh, once buried in tabs and distractions, narrowed his focus and reclaimed his drive. In just 24 hours, he transformed from a wandering coder to a deadline-hitting machine. Let this be a reminder to us all: greatness is only ever one deep focus session away.',
                 'category' => 'event',
                 'image_url' => null,
                 'user_id' => $user->id
