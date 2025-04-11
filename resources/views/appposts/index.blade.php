@@ -40,8 +40,6 @@
                 @endforeach
             </div>
 
-
-
             <!-- Latest News Post -->
             @if($latestNews)
                 <div class="mb-4">
